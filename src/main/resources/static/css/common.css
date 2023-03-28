@@ -1,0 +1,78 @@
+/*버튼 관련 기본 설정*/
+.btn {
+  color: #fff;
+  background-color: #fff;
+  cursor: default;
+}
+.btn:active,
+.btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* 네비게이션 바 */
+.navbar {
+  background-color: transparent;
+  border: none;
+}
+
+.navbar-brand img {
+  height: 40px;
+  max-height: 60px;
+  width: auto;
+  max-width: 100%;
+}
+
+.navbar .logout {
+  margin-left: auto;
+  margin-top: 3px;
+  font-family: Arial, sans-serif;
+}
+
+
+/*로그아웃 버튼*/
+.logout-button {
+  background-color: #053897;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 8px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #124fc1;
+  color: #fff;
+}
+
+/*모바일 버전*/
+@media (max-width: 767.98px) {
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .navbar-brand img {
+    height: 30px;
+    width: auto;
+    max-height: 40px;
+    max-width: 100%;
+  }
+
+  .logout {
+    font-size: 13px;
+  }
+
+  .logout-button {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+
+}

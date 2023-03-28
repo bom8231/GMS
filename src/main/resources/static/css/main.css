@@ -1,0 +1,106 @@
+/* 배너 */
+.banner {
+  background-color: rgb(0, 32, 91);
+  color: white;
+  padding-top: 65px;
+  padding-left: 10px;
+  height: 250px;
+  text-align: center;
+}
+
+.banner h2 {
+  margin-bottom: 5px;
+  font-size: 35px;
+}
+.banner h4 {
+  font-size: 20px;
+}
+
+/*가이드 버튼*/
+.guide-button {
+  margin: 10px;
+  background-color: #124fc1;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 50px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.guide-button:hover {
+  background-color: #246bee;
+  color: #fff;
+}
+
+.link-icon {
+  width: 18px;
+  margin-right: 5px;
+}
+
+/*항목 버튼*/
+
+.common-button {
+  color: white;
+  width: 100%;
+  border-radius: 0px;
+  margin-left: 0px;
+  border: none;
+}
+
+.common-button :hover {
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+}
+
+.common-button div :hover {
+  box-shadow: none;
+}
+.common-button img {
+  width: 150px;
+}
+
+.in-button {
+  margin: 5px;
+  margin-bottom: 10px;
+}
+
+.odd {
+  background: #539acc;
+}
+
+.even {
+  background: #427092;
+}
+
+@media (max-width: 767.98px) {
+  .banner {
+    background-color: rgb(0, 32, 91);
+    color: white;
+    padding-top: 20px;
+    padding-left: 10px;
+    height: 150px;
+  }
+
+  .banner h2 {
+    margin-bottom: 5px;
+    font-size: 25px;
+  }
+  .banner h4 {
+    font-size: 15px;
+  }
+
+  .common-button img {
+    width: 70px;
+  }
+
+  .lightButton {
+    background: #539acc;
+  }
+
+  .darkButton {
+    background: #427092;
+  }
+}
