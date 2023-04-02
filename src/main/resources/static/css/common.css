@@ -1,9 +1,24 @@
-/*버튼 관련 기본 설정*/
-.btn {
-  color: #fff;
-  background-color: #fff;
-  cursor: default;
+/*간격 관련*/
+.margin-top-20 {
+	margin-top: 20px;
 }
+
+.inline-h {
+	display: inline-block;
+	margin-bottom: 0px;
+	margin-left: 10px;
+}
+
+h2 {
+  font-size: 35px;
+}
+h4 {
+  font-size: 20px;
+}
+
+
+/*버튼 관련 기본 설정*/
+
 .btn:active,
 .btn:focus {
   outline: none !important;
@@ -26,6 +41,7 @@ button:focus {
   width: auto;
   max-width: 100%;
 }
+
 
 .navbar .logout {
   margin-left: auto;
@@ -60,7 +76,7 @@ button:focus {
   }
 
   .navbar-brand img {
-    height: 30px;
+    height: 20px;
     width: auto;
     max-height: 40px;
     max-width: 100%;
@@ -70,9 +86,24 @@ button:focus {
     font-size: 13px;
   }
 
+.logout span{
+
+}
+
+.name{
+margin-top:100px;
+}
+
   .logout-button {
+      margin-top:5px;
     font-size: 12px;
     padding: 5px 8px;
   }
 
+  h2 {
+    font-size: 25px;
+  }
+  h4 {
+    font-size: 15px;
+  }
 }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="fragments/common :: head">
+<head th:replace="~{fragments/common :: head}">
 </head>
 <head>
 <!--    <link rel="stylesheet" href="css/main.css" />-->
@@ -8,8 +8,19 @@
 
 <body>
 <!-- 네비게이션 바 -->
-<nav class="navbar navbar-expand-lg" th:replace="fragments/common :: navBar">
+<nav class="navbar navbar-expand-lg" th:replace="~{fragments/common :: navBar}">
 </nav>
+<div id="wrapper">
+    <div class="container">
+        <div class="col-md-12">
+            <div class="py-5 text-center">
+                <h2><b>2023. 04. 01 (토)</b><br>방문 예정</h2>
+
+            </div>
+
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

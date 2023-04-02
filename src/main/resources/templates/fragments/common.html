@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>SL 방문자 관리 시스템</title>
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+
+
+    <link rel="stylesheet" href="css/common.css" />
+</head>
+
+<body>
+<!-- 네비게이션 바 -->
+<nav class="navbar navbar-expand-lg" th:fragment="navBar">
+    <div class="container">
+        <a class="navbar-brand" href="#" th:href="@{/}">
+            <img src="img/logo.png" alt="로고" />
+        </a>
+        <div class="logout">
+            <span class="name">김보민님</span>
+            <span class="mr-2">(관리자)</span>
+            <button class="btn logout-button" type="button">로그아웃</button>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

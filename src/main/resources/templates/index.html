@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
-  <head th:replace="fragments/common :: head"> </head>
+  <head th:replace="~{fragments/common :: head}"> </head>
   <head>
     <link rel="stylesheet" href="css/main.css" />
   </head>
@@ -9,7 +9,7 @@
     <!-- 네비게이션 바 -->
     <nav
       class="navbar navbar-expand-lg"
-      th:replace="fragments/common :: navBar"
+      th:replace="~{fragments/common :: navBar}"
     ></nav>
 
     <!-- 배너 -->
@@ -28,7 +28,7 @@
       <!-- 버튼들 -->
       <main>
         <div class="row no-gutters">
-          <div class="col-6 col-md">
+          <div class="col-6 col-md buttons">
             <button type="button" class="common-button odd lightButton" th:onclick="|location.href='@{/registration}'|">
               <div class="in-button">
                 <img src="img/Edit.png" alt="이미지" class="img-fluid mb-2" />
