@@ -3,7 +3,7 @@
 <head th:replace="~{fragments/common :: head}">
 </head>
 <head>
-  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/registration.css" />
 </head>
 
 <body>
@@ -14,14 +14,145 @@
 <div id="wrapper">
     <div class="container">
             <div class="py-3">
+                <div class="registration">
                 <h2 class="text-center">방문 신청</h2>
                 <div class="row margin-top-20">
                     <div class="col-sm-12">
+                        <div class="icon-header">
+                            <i class="fas fa-check"></i>
+                        </div>
                         <h4 class="inline-h">등록자 정보</h4>
-
-
                     </div>
 
+
+                            <table class="table" style="margin-top: 10px;">
+                                <tbody>
+                                <tr>
+                                    <th class="plant"><label for="plant">계열사</label></th>
+                                    <td colspan="3">
+                                        <div class="plant-info">※ 자신의 소속이 아닌, 현재 근무하고 있는 곳을 선택.</div>
+                                        <div class="input-group-prepend ">
+                                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="plant" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >계열사 선택</button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">SL(주) - 진량공장</a>
+
+                                            </div>
+                                        </div>
+
+
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <th> <label for="name">성명</label></th>
+                                     <td>
+                                         <input type="text" class="form-control" id="name">
+                                    </td>
+                                    <th> <label for="dept">부서</label></th>
+                                    <td>
+                                        <input type="text" class="form-control"  id="dept">
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <th> <label for="email">이메일</label></th>
+                                    <td>
+                                        <input type="email" class="form-control"  id="email">
+                                    </td>
+                                    <th> <label for="tel">연락처</label></th>
+                                    <td>
+                                        <input type="tel" class="form-control" id="tel">
+                                    </td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                    </div>
+                <div class="row margin-top-20">
+                    <div class="col-sm-12">
+                        <div class="icon-header">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h4 class="inline-h">방문 정보</h4>
+                    </div>
+
+                    <table class="table" style="margin-top: 10px;">
+                        <tbody>
+                        <tr>
+                            <th> <label for="title">제목</label></th>
+                            <td> <input type="text" class="form-control"  id="title"></td>
+                        </tr>
+                        <tr>
+
+                            <th> <label for="date">내방예정일</label></th>
+                            <td> <input type="date" id="date" class="form-control" placeholder="날짜 선택" aria-describedby="basic-addon2"></td>
+                        </tr>
+                        <tr>
+                            <th>보안스티커</th>
+                            <td>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input"  type="radio" name="sticker" id="inlineRadio1" value="yes">
+                                    <label class="form-check-label" for="inlineRadio1">부착</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="sticker" id="inlineRadio2" value="no">
+                                    <label class="form-check-label" for="inlineRadio2">미부착</label>
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th> <label for="car-num">차량번호</label></th>  <td> <input type="text" class="form-control"  id="car-num"></td>
+
+                        <tr>
+                            <th><label for="purpose">내방목적</label></th>
+                            <td>
+                                <div class="input-group-prepend ">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="purpose" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >내방 목적 선택</button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">SL(주) - 진량공장</a>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="content"><label for="content">상세내역</label></th>
+                            <td><textarea class="form-control"  rows="3" id="content"></textarea></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                    <div class="row margin-top-20">
+                        <div class="col-sm-12">
+                            <div class="icon-header">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <h4 class="inline-h">방문객 정보</h4>
+                        </div>
+
+                        <table class="table" style="margin-top: 10px;">
+                            <tbody>
+                            <tr>
+                                <th> <label for="visitor-name">이름</label></th>
+                                <td> <input type="text" class="form-control"  id="visitor-name"></td>
+                            </tr>
+                            <tr>
+                                <th><label for="visit-company">업체명</label></th>
+                                <td><input type="text" class="form-control"  id="visit-company"></td>
+                                <th><label for="visit-class">직급</label></th>
+                                <td><input type="text" class="form-control"  id="visit-class"></td>
+                            </tr>
+                            <tr>
+                                <th><label for="visit-phone">연락처</label></th>
+                                <td><input type="tel" class="form-control"  id="visit-phone"></td>
+                                <th><label for="visit-email">이메일</label></th>
+                                <td><input type="email" class="form-control"  id="visit-email"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
 
 
@@ -31,8 +162,9 @@
             </div>
 
         </div>
-    </div>
 </div>
+
+
 
 </body>
 </html>

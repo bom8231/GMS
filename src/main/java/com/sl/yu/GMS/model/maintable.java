@@ -13,6 +13,8 @@ public class maintable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long VISIT_ID;
     private String TITLE;
+    private String USER_ID;
+    private String USER_NAME;
     private String TEL;
     private String CONTENT_VISIT;
     private String EMAIL;

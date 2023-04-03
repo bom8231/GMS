@@ -69,6 +69,11 @@ button.common-button:hover {
   margin-bottom: 10px;
 }
 
+.kr-info{
+    font-size: 20px;
+}
+
+
 .odd {
   background: #539acc;
 }
