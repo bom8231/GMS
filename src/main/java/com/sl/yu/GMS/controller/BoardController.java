@@ -26,6 +26,17 @@ public class BoardController {
     public String list(){
         return "board/list";
     }
+
+    @GetMapping("/detail1")
+    public String detail_1(){
+        return "board/detail1";
+    }
+
+    @GetMapping("/detail2")
+    public String detail_2(){
+        return "board/detail2";
+    }
+
     @Autowired
     private BoardRepository boardRepository;
     @GetMapping("/checkIn")
