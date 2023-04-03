@@ -1,0 +1,72 @@
+.icon-header {
+	height: 21px;
+	width: 21px;
+	line-height: 21px;
+	text-align: center;
+	border: 1px solid #053897;
+	font-size: 14px;
+	color: white;
+	display: inline-block;
+	background-color: #053897;
+}
+
+
+
+.registration {
+  margin: 0;
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.plant{
+padding: 30px 15px !important;
+}
+
+.content{
+padding: 35px 15px !important;
+}
+.table th {
+  padding: 15px 5px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 16px;
+  width: 13%;
+}
+
+.plant-info{
+ font-size: 15px;
+text-align:left;
+ margin:5px;
+
+}
+.table td{
+  padding: 12px 15px;
+  border: none;
+  text-align: left;
+  font-size: 16px;
+
+
+}
+
+.table th {
+  background-color:#053897;
+  color: #ffffff;
+}
+
+
+/*responsive*/
+
+@media (max-width: 500px) {
+.table th {
+  width: 26%;
+}
+}
+
