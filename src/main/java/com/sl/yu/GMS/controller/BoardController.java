@@ -6,15 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
 @Controller
 public class BoardController {
     @GetMapping("/registration")
-    public String registration(){
-
+    public String registration(Model model){
+        model.addAttribute("board",new maintable());
         return "board/registration";
+    }
+    @PostMapping("/registration")
+    public String registrationSubmit(@ModelAttribute maintable board){
+    boardRepository.save(board);
+    return "redirect:/";
     }
 
     @GetMapping("/progress")
@@ -45,6 +52,8 @@ public class BoardController {
         model.addAttribute("boards", maintables);
         return "board/checkIn";
     }
+
+
 
     @GetMapping("/checkOut")
     public String checkOut(){

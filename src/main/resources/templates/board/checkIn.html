@@ -3,7 +3,7 @@
 <head th:replace="~{fragments/common :: head}">
 </head>
 <head>
-<!--    <link rel="stylesheet" href="css/main.css" />-->
+    <link rel="stylesheet" href="css/checkIn.css" />
 </head>
 
 <body>
@@ -14,7 +14,13 @@
     <div class="container">
         <div class="col-md-12">
             <div class="py-5 text-center">
-                <h2><b>2023. 04. 01 (토)</b><br>방문 예정</h2>
+
+                   <span class="date" th:text="${#temporals.format(#temporals.createNow(), 'yyyy. MM. dd')}"></span>
+
+                    <span  class="day" th:text="${#temporals.format(#temporals.createNow(), '(EEE)')}"></span>
+                <br/>
+                <span class="plan">방문 예정</span>
+
 
             </div>
 
