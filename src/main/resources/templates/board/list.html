@@ -28,16 +28,14 @@
             <div>
                 <div style="float: left; ">
                     <div class="input-group mb-3" >
-                        <div class="input-group-prepend ">
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">검색옵션</button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">내방자명</a>
-                                <a class="dropdown-item" href="#">등록자명</a>
-                                <a class="dropdown-item" href="#">내방자회사</a>
-                                <a class="dropdown-item" href="#">제목</a>
-                                <a class="dropdown-item" href="#">차량번호</a>
-                            </div>
-                        </div>
+                        <select class="form-select btn-outline-secondary" id="plant" name="color" >
+                            <option value="" selected  style="display: none;">계열사 선택</option>
+                            <option value="visit_name">내방자명</option>
+                            <option value="2">등록자명</option>
+                            <option value="3">내방자회사</option>
+                            <option value="4">제목</option>
+                            <option value="5">차량번호</option>
+                        </select>
                         <input type="text" class="form-control" placeholder="검색어" aria-label="Text input with dropdown button">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="button">조회</button>
@@ -57,77 +55,48 @@
 
 
 
-            <table class="table table-hover">
-                <thead>
-                <tr class="table-primary">
-                    <th width="10%" scope="row">등록번호</th>
-                    <th width="12%">등록부서</th>
-                    <th width="10%">등록자</th>
-                    <th width="33%">제목</th>
-                    <th width="10%">내방자명</th>
-                    <th width="10%">내방자회사</th>
-                    <th width="15%">내방목적</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>20230327-186310</td>
-                    <td>(진량)생산팀</td>
-                    <td>송조근</td>
-                    <td>업무관련 방문</td>
-                    <td>이승준</td>
-                    <td>제이씨시스템</td>
-                    <td>업무협의(면담, 회의)</td>
-                </tr>
-                <tr>
-                    <td>20230327-186338</td>
-                    <td>(진량)품질팀</td>
-                    <td>박한복</td>
-                    <td>업무</td>
-                    <td>강민기</td>
-                    <td>파코스</td>
-                    <td>업무협의(면담, 회의)</td>
-                </tr>
-                <tr>
-                    <td>20230327-186325</td>
-                    <td>금형제작팀</td>
-                    <td>윤석희</td>
-                    <td>핫러너 점검의 건</td>
-                    <td>박성훈</td>
-                    <td>삼정정밀</td>
-                    <td>업무협의(면담, 회의)</td>
-                </tr>
-                <tr>
-                    <td>20230327-186323</td>
-                    <td>(진량)생산기술팀</td>
-                    <td>윤여걸</td>
-                    <td>업무관련 방문</td>
-                    <td>조원국 외 1명</td>
-                    <td>제이씨시스템</td>
-                    <td>업무협의(면담, 회의)</td>
-                </tr>
-                <tr>
-                    <td>20230327-186302</td>
-                    <td>(진량 전자공장)생산기술팀</td>
-                    <td>이경목</td>
-                    <td>업무협의</td>
-                    <td>류정형</td>
-                    <td>지성테크</td>
-                    <td>업무협의(면담, 회의)</td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive" style="font-size : 0.75em">
+                <table class="table table-hover">
+                    <thead>
+                    <tr class="table-primary">
+                        <th width="10%" scope="row" style="white-space:nowrap;">등록번호</th>
+                        <th width="12%" style="white-space:nowrap;">등록부서</th>
+                        <th width="10%"style="white-space:nowrap;">등록자</th>
+                        <th width="33%" style="white-space:nowrap;">제목</th>
+                        <th width="10%" style="white-space:nowrap;">내방자명</th>
+                        <th width="10%" style="white-space:nowrap;">내방자회사</th>
+                        <th width="15%" style="white-space:nowrap;">내방목적</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="list,index: ${resultMap.list}" th:with="paging=${resultMap.paging}">
+
+                        <td style="white-space:nowrap;" th:text="${list.id}">등록번호</td>
+                        <td style="white-space:nowrap;" th:text="${list.DEPT_ID}">등록부서</td>
+                        <td style="white-space:nowrap;" th:text="${list.USER_ID}">등록자</td>
+                        <td>
+                            <a th:href="@{/list/{postId}(postId=${list.id})}"
+                               th:text="${list.TITLE}">제목</a>
+                        </td>
+                        <td style="white-space:nowrap;" th:text="${list.VISITOR}">내방자명</td>
+                        <td style="white-space:nowrap;" th:text="${list.VISIT_ASSIGN}">내방자회사</td>
+                        <td style="white-space:nowrap;" th:text="${list.VISIT_PURPOSE}">내방목적</td>
+
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
 
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">이전</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">다음</a>
+                    <li class="page-item" th:if="${resultMap.totalPage} > 0" th:each="index : ${#numbers.sequence(1, resultMap.totalPage)}"
+                        th:with="paging=${resultMap.paging}">
+                        <a class="page-link"
+                           th:href="@{/list(page=${index-1})}">
+                            <span th:text="${index}"></span>
+                        </a>
                     </li>
                 </ul>
 

@@ -1,16 +1,26 @@
 package com.sl.yu.GMS.controller;
 
 import com.sl.yu.GMS.model.maintable;
+import com.sl.yu.GMS.Service.BoardService;
 import com.sl.yu.GMS.repository.BoardRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-
+@Slf4j
+@RequiredArgsConstructor
 @Controller
 public class BoardController {
+
+    private final BoardService boardService;
     @GetMapping("/registration")
     public String registration(){
 
@@ -23,8 +33,17 @@ public class BoardController {
     }
 
     @GetMapping("/list")
-    public String list(){
+    public String list(Model model,
+                       @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 15) Pageable pageable) {
+        model.addAttribute("resultMap", boardService.findAll(pageable));
         return "board/list";
+    }
+    @GetMapping("/list/{postId}")
+    public String listbyid(@PathVariable Long postId, Model model) {
+        maintable post = boardService.findOne(postId).orElseThrow();
+        model.addAttribute("post", post);
+
+        return "board/detail2";
     }
 
     @GetMapping("/detail1")
@@ -40,9 +59,8 @@ public class BoardController {
     @Autowired
     private BoardRepository boardRepository;
     @GetMapping("/checkIn")
-    public String checkIn(Model model){
-        List<maintable> maintables = boardRepository.findAll();
-        model.addAttribute("boards", maintables);
+    public String checkIn(){
+
         return "board/checkIn";
     }
 
