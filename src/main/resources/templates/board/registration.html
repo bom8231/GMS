@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
-  <head th:replace="~{fragments/common :: head}"> </head>
-  <head>
-    <link rel="stylesheet" href="css/registration.css" />
-    <script></script>
-  </head>
+<head th:replace="~{fragments/common :: head}"> </head>
+<head>
+  <link rel="stylesheet" href="css/registration.css" />
+  <script></script>
+</head>
 
-  <body>
-  <form action="#" th:action="@{/registration}" th:object="${board}" method="post" onsubmit="return confirmSubmit();">
+<body>
+<form action="#" th:action="@{/registration}" th:object="${board}" method="post" onsubmit="return confirmSubmit();">
   <div class="content">
     <!-- 페이지 내용 -->
     <!-- 네비게이션 바 -->
@@ -45,16 +45,16 @@
                       <option value=2>SL(주)-대구공장</option>
                       <option value=3>SL(주)-성산공장</option>
                       <option value=4>SL(주)-천안공장</option>
-<!--                      <option value=5>SL 서봉-시흥공장</option>-->
-<!--                      <option value=6>SL 서봉-화성공장</option>-->
+                      <!--                      <option value=5>SL 서봉-시흥공장</option>-->
+                      <!--                      <option value=6>SL 서봉-화성공장</option>-->
                       <option value=8>SL(주)-안산공장</option>
                       <option value=10>SL 전자공장(성서)</option>
-<!--                      <option value=11>SHB 진량</option>-->
-<!--                      <option value=12>SHB 울산</option>-->
-<!--                      <option value=13>SHB 서산</option>-->
-<!--                      <option value=14>SHB 화성</option>-->
-<!--                      <option value=15>SL미러텍 </option>-->
-<!--                      <option value=16>KDS</option>-->
+                      <!--                      <option value=11>SHB 진량</option>-->
+                      <!--                      <option value=12>SHB 울산</option>-->
+                      <!--                      <option value=13>SHB 서산</option>-->
+                      <!--                      <option value=14>SHB 화성</option>-->
+                      <!--                      <option value=15>SL미러텍 </option>-->
+                      <!--                      <option value=16>KDS</option>-->
                     </select>
                   </td>
                 </tr>
@@ -97,7 +97,7 @@
                 <tr>
                   <th><label for="title">제목</label></th>
                   <td>
-                    <input type="text" class="form-control" id="title" required th:field="*{TITLE}"/>
+                    <input type="text" class="form-control" id="title"  th:field="*{TITLE}" required/>
                   </td>
                   <th><label for="date">내방 예정일</label></th>
                   <td>
@@ -251,20 +251,8 @@
     <!-- 하단 고정 바 -->
     <button class="btn btn-registration" type="submit">등록</button>
   </div>
-  </form>
+</form>
 
-
-
-
-
-
-
-
-
-
-
-
-
-    <script src="js/registration.js"></script>
-  </body>
+<script src="js/registration.js"></script>
+</body>
 </html>
