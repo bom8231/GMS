@@ -1,16 +1,39 @@
-.icon-header {
-	height: 21px;
-	width: 21px;
-	line-height: 21px;
-	text-align: center;
-	border: 1px solid #053897;
-	font-size: 14px;
-	color: white;
-	display: inline-block;
-	background-color: #053897;
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+     margin-bottom: 40px;
+}
+
+.footer {
+  margin-top: 20px;
+    background-color: #f5f5f5;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
 }
 
 
+.icon-header {
+  height: 21px;
+  width: 21px;
+  line-height: 21px;
+  text-align: center;
+  border: 1px solid #427092;
+  font-size: 14px;
+  color: white;
+  display: inline-block;
+  background-color: #427092;
+}
 
 .registration {
   margin: 0;
@@ -26,47 +49,165 @@
   width: 100%;
   border-collapse: collapse;
 }
-.plant{
-padding: 30px 15px !important;
+
+.plant {
+  padding: 30px 15px !important;
 }
 
-.content{
-padding: 35px 15px !important;
-}
 .table th {
-  padding: 15px 5px;
+  background-color: #539acc;
+  color: #ffffff;
+  vertical-align: middle;
   border: 1px solid #ddd;
   text-align: center;
-  font-size: 16px;
-  width: 13%;
+  font-size: 15px;
+  width: 17%;
 }
 
-.plant-info{
- font-size: 15px;
-text-align:left;
- margin:5px;
-
-}
-.table td{
+.table td {
   padding: 12px 15px;
   border: none;
   text-align: left;
   font-size: 16px;
-
-
+}
+.plant-info {
+  font-size: 15px;
+  text-align: left;
+  margin: 5px;
 }
 
-.table th {
-  background-color:#053897;
-  color: #ffffff;
+
+
+/*플러스 버튼*/
+.plus-button {
+  background-color: #427092;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.plus-button:hover {
+  background-color: #3b5a71;
+  color: #fff;
 }
 
 
-/*responsive*/
+/*마이너스 버튼*/
+.minus-button {
+  background-color: #427092;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
 
-@media (max-width: 500px) {
-.table th {
-  width: 26%;
+.minus-button:hover {
+  background-color: #3b5a71;
+  color: #fff;
+}
+
+/*등록 버튼*/
+.btn-registration {
+   background-color: #539acc;
+   color: #fff;
+   font-family: Arial, sans-serif;
+   font-size: 20px;
+   border-radius: 8px;
+   border: 1px solid #539acc;
+   padding: 8px 70px;
+   text-transform: uppercase;
+   cursor: pointer;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border 0.2s ease-in-out;
+ }
+
+.btn-registration:hover {
+  background-color: #568ab1;
+  color: #fff;
+}
+
+/*드롭다운*/
+.form-select {
+   border-radius: 8px;
+   padding: 5px;
+   width: 190px;
+ }
+
+select option {
+  color: #000;
+}
+
+ .contentArea {
+    width: 50%;
+  }
+
+/* 모바일 버전 */
+
+@media (max-width: 768px) {
+  .table {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .table tr {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .table th {
+    width: 25%;
+    box-sizing: border-box;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+
+  .table td {
+    width: 75%;
+    box-sizing: border-box;
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+  }
+
+ .contentArea {
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .plant-info {
+    display: block;
+  }
+
+  .plus-button {
+    font-size: 13px;
+    padding: 6px 8px;
+  }
+    .hidden{
+    display:none;
+    }
+
+.btn-registration{
+background-color: #539acc;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  border: none;
+   border-radius: 8px;
+  padding: 8px 50px;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 }
-

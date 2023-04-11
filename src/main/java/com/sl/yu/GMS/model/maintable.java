@@ -1,13 +1,18 @@
 package com.sl.yu.GMS.model;
 
 import jakarta.persistence.*;
-import lombok.*;
 
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
 @Data
 @Getter
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class maintable {
     @Id
@@ -31,6 +36,7 @@ public class maintable {
     private String FILE_ID;
     private String PLANT;
     private Date REPLY_DATE;
+
     private String REQ_DATE;
     private String STATE_ID;
     private String TEL;
@@ -38,12 +44,27 @@ public class maintable {
     private String USER_ID;
     private String USER_NAME;
 
+
+    @Column(insertable = false)
+    private String REQ_DATE = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());;
+    @PrePersist
+    public void prePersist() {
+        this.REQ_DATE =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());;
+    }
+    @Column(insertable = false)
+    private String STATE_ID ="0";
+    private String TEL;
+    private String TITLE;
+    private String USER_ID;
+    private String USER_NAME;
     private String VISIT_ASSIGN;
     private String VISIT_CLASS;
     private String VISIT_PURPOSE;
     private String VISIT_TIME;
     private String VISITOR;
     private String VISITOR_EMAIL;
+    private String VISITOR_PHONE;
+
     @Builder
     public maintable(String ATTACH, String BACK_TIME, String CAR_NUMBER, String CARD_ID, String COMPLETE, String CONTENT_VISIT, String DE_DATE, String DEPT_ID, String DEPT_NAME, String EMAIL, Date END_DATE, String FILE_ID, String PLANT, Date REPLY_DATE, String REQ_DATE, String STATE_ID, String TEL, String TITLE, String USER_ID, String USER_NAME, String VISIT_ASSIGN, String VISIT_CLASS, String VISIT_PURPOSE, String VISIT_TIME, String VISITOR, String VISITOR_EMAIL) {
         this.ATTACH = ATTACH;

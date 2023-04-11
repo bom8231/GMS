@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -22,9 +24,14 @@ public class BoardController {
 
     private final BoardService boardService;
     @GetMapping("/registration")
-    public String registration(){
-
+    public String registration(Model model){
+        model.addAttribute("board",new maintable());
         return "board/registration";
+    }
+    @PostMapping("/registration")
+    public String registrationSubmit(@ModelAttribute maintable board){
+    boardRepository.save(board);
+    return "redirect:/";
     }
 
     @GetMapping("/progress")
@@ -63,6 +70,7 @@ public class BoardController {
 
         return "board/checkIn";
     }
+
 
     @GetMapping("/checkOut")
     public String checkOut(){

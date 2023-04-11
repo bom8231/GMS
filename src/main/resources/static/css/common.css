@@ -50,9 +50,10 @@ button:focus {
 }
 
 
+
 /*로그아웃 버튼*/
 .logout-button {
-  background-color: #053897;
+  background-color: #539acc;
   color: #fff;
   font-family: Arial, sans-serif;
   font-size: 13px;
@@ -64,7 +65,7 @@ button:focus {
 }
 
 .logout-button:hover {
-  background-color: #124fc1;
+  background-color: #568ab1;
   color: #fff;
 }
 
