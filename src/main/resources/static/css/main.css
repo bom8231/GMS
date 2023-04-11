@@ -119,4 +119,8 @@ button.common-button:hover {
   .darkButton {
     background: #427092;
   }
+
+  .kr-info{
+      font-size: 18px;
+  }
 }
