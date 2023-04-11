@@ -33,7 +33,7 @@ public class maintable {
     private String REQ_DATE = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
     @PrePersist
     public void prePersist() {
-        this.REQ_DATE =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());;
+        this.REQ_DATE =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
     }
     @Column(insertable = false)
     private String STATE_ID ="0";
