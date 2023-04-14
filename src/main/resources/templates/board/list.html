@@ -3,7 +3,7 @@
 <head th:replace="~{fragments/common :: head}">
 </head>
 <head>
-    <!--    <link rel="stylesheet" href="css/main.css" />-->
+    <link rel="stylesheet" href="css/list.css" />
 
 
 </head>
@@ -15,26 +15,26 @@
 
 <div id="wrapper">
     <div class="container">
-        <div class="col-md-12">
-            <div class="py-5 text-center">
+
+        <div class="col-md-12 py-3">
+            <div class="text-center">
                 <h2>전체 예약 리스트</h2>
             </div>
 
-            <div style="margin-bottom: 5px;">
-                <span class="badge bg-secondary">전체 등록 x 개</span>
-                <span class="badge bg-secondary">현재 x 개</span>
+            <div class="counts margin-top-20">
+                <span class="badge bg-secondary">전체 등록 <span th:text="${resultMap.list.totalElements}">50</span>개</span>
+                <span class="badge bg-secondary">현재 <span th:text="${resultMap.list.getSize}">15</span>개</span>
             </div>
 
             <div>
                 <div style="float: left; ">
                     <div class="input-group mb-3" >
-                        <select class="form-select btn-outline-secondary" id="plant" name="color" >
-                            <option value="" selected  style="display: none;">계열사 선택</option>
-                            <option value="visit_name">내방자명</option>
-                            <option value="2">등록자명</option>
-                            <option value="3">내방자회사</option>
-                            <option value="4">제목</option>
-                            <option value="5">차량번호</option>
+                        <select class="form-select btn-outline-secondary" id="searchDrop" name="searchDrop" >
+                            <option value="" selected  style="display: none;">검색 옵션 선택</option>
+                            <option value="내방자명">내방자명</option>
+                            <option value="등록자명">등록자명</option>
+                            <option value="내방자회사">내방자회사</option>
+                            <option value="제목">제목</option>
                         </select>
                         <input type="text" class="form-control" placeholder="검색어" aria-label="Text input with dropdown button">
                         <div class="input-group-append">
@@ -53,43 +53,35 @@
                 </div>
             </div>
 
-
-
-            <div class="table-responsive" style="font-size : 0.75em">
+            <!-- 목록-->
+            <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
-                    <tr class="table-primary">
-                        <th width="10%" scope="row" style="white-space:nowrap;">등록번호</th>
-                        <th width="12%" style="white-space:nowrap;">등록부서</th>
-                        <th width="10%"style="white-space:nowrap;">등록자</th>
-                        <th width="33%" style="white-space:nowrap;">제목</th>
-                        <th width="10%" style="white-space:nowrap;">내방자명</th>
-                        <th width="10%" style="white-space:nowrap;">내방자회사</th>
-                        <th width="15%" style="white-space:nowrap;">내방목적</th>
+                    <tr>
+                        <th width="10%">등록번호</th>
+                        <th width="13%">등록부서</th>
+                        <th width="10%">등록자</th>
+                        <th width="30%">제목</th>
+                        <th width="15%">내방자명</th>
+                        <th width="10%">내방자회사</th>
+                        <th width="12%">상태</th>
                     </tr>
                     </thead>
                     <tbody>
-
-                    <tr th:each="list,index: ${resultMap.list}" th:with="paging=${resultMap.paging}">
-
-                        <td style="white-space:nowrap;" th:text="${list.id}">등록번호</td>
-                        <td style="white-space:nowrap;" th:text="${list.DEPT_ID}">등록부서</td>
-                        <td style="white-space:nowrap;" th:text="${list.USER_ID}">등록자</td>
-                        <td>
-                            <a th:href="@{/list/{postId}(postId=${list.id})}"
-                               th:text="${list.TITLE}">제목</a>
-                        </td>
-                        <td style="white-space:nowrap;" th:text="${list.VISITOR}">내방자명</td>
-                        <td style="white-space:nowrap;" th:text="${list.VISIT_ASSIGN}">내방자회사</td>
-                        <td style="white-space:nowrap;" th:text="${list.VISIT_PURPOSE}">내방목적</td>
-
+                    <tr  th:each="list,index: ${resultMap.list}" th:with="paging=${resultMap.paging}" th:data-href="@{/list/{postId}(postId=${list.id})}" >
+                        <td data-label="등록번호" th:text="${list.id}">등록번호</td>
+                        <td data-label="등록부서" th:text="${list.DEPT_ID}">등록부서</td>
+                        <td data-label="등록자"  th:text="${list.USER_ID}">등록자</td>
+                        <td data-label="제목"   th:text="${list.TITLE}">이건 제목이 아주 길지롱?</td>
+                        <td data-label="내방자명" th:text="${list.VISITOR}">내방자명</td>
+                        <td data-label="내방자회사" th:text="${list.VISIT_ASSIGN}">내방자회사</td>
+                        <td data-label="상태"  th:text="${list.VISIT_PURPOSE}">방문진행중</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
 
-
-            <nav aria-label="Page navigation example">
+            <nav aria-label="Page navigation example" style="margin-top: 10px;">
                 <ul class="pagination justify-content-center">
                     <li class="page-item" th:if="${resultMap.totalPage} > 0" th:each="index : ${#numbers.sequence(1, resultMap.totalPage)}"
                         th:with="paging=${resultMap.paging}">
@@ -102,10 +94,13 @@
 
             </nav>
 
+
         </div>
     </div>
+
 </div>
 
+<script src="js/list.js"></script>
 
 </body>
 </html>

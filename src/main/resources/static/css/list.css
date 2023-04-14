@@ -1,0 +1,127 @@
+.bg-secondary{
+color: white;
+}
+
+.counts{
+    margin-bottom: 5px;
+}
+
+.badge{
+ padding:8px; 10px;
+ font-family: Arial, sans-serif;
+}
+/* table 관련*/
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+
+
+.table th {
+  background-color: #539acc;
+  white-space:nowrap;
+  color: #ffffff;
+  vertical-align: middle;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 15px;
+}
+
+.table td {
+  padding: 12px 15px;
+  white-space:nowrap;
+  border: none;
+  text-align: left;
+  font-size: 16px;
+}
+
+.table td:hover {
+  cursor: pointer;
+}
+
+.btn-outline{
+   padding: 5px;
+   width: 150px;
+   border:1px solid #6c757d;
+ }
+
+/* 스크롤바 스타일 초기화 */
+.table-responsive::-webkit-scrollbar {
+  width: 12px;
+  background-color: #f5f5f5;
+  /* 가로 스크롤바 전체 높이 조정 */
+  height: 12px; /* 원하는 높이 값으로 변경 */
+}
+
+/* 스크롤바 thumb 스타일 */
+.table-responsive::-webkit-scrollbar-thumb {
+  background-color: #999;
+  border-radius: 6px;
+}
+
+/* 스크롤바 thumb에 호버 효과 */
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background-color: #777;
+}
+
+/* 스크롤바 track 스타일 */
+.table-responsive::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+}
+
+/* 스크롤바 track에 호버 효과 */
+.table-responsive::-webkit-scrollbar-track:hover {
+  background-color: #ddd;
+}
+
+/*모바일 버전*/
+
+@media (max-width: 768px) {
+
+.table tbody tr:nth-child(even) {
+  background-color: #539acc;
+  color: white;
+}
+
+.table tbody tr:nth-child(even):hover {
+  background-color: #568ab1;
+}
+  .table thead {
+    display: none;
+  }
+
+  .table,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+    width: 100%;
+  }
+  .table tr {
+    margin-bottom: 15px;
+     border: 1px solid #ddd;
+     border-radius: 8px;
+  }
+
+  .table td {
+    padding-left:35%;
+    text-align: left;
+    position: relative;
+    white-space: normal;
+    word-wrap: break-word;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 30%;
+    padding-left: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: left;
+  }
+}
+

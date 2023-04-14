@@ -41,7 +41,7 @@ public class BoardController {
 
     @GetMapping("/list")
     public String list(Model model,
-                       @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 15) Pageable pageable) {
+                       @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable pageable) {
         model.addAttribute("resultMap", boardService.findAll(pageable));
         return "board/list";
     }
