@@ -40,8 +40,11 @@ public class maintable {
     private String TEL;
     private String TITLE;
     private String USER_ID;
-    private String USER_NAME;
-    private String VISIT_ASSIGN;
+
+    @Column(name = "USER_NAME")
+    private String userName;
+    @Column(name = "VISIT_ASSIGN")
+    private String visitAssign;
     private String VISIT_CLASS;
     private String VISIT_PURPOSE;
     private String VISIT_TIME;
