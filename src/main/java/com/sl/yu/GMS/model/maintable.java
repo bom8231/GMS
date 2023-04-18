@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Entity
@@ -21,22 +23,25 @@ public class maintable {
     private String CARD_ID;
     private String COMPLETE;
     private String CONTENT_VISIT;
-    private String DE_DATE;
+    @Column(name="DE_DATE")
+    private String deDate;
     private String DEPT_ID;
     private String DEPT_NAME;
     private String EMAIL;
     private Date END_DATE;
     private String FILE_ID;
     private String PLANT;
-    private Date REPLY_DATE;
+    @Column(name="REPLY_DATE")
+    private Date replyDate;
     @Column(insertable = false)
-    private String REQ_DATE = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+    private String REQ_DATE;
     @PrePersist
     public void prePersist() {
-        this.REQ_DATE =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        this.REQ_DATE = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
-    @Column(insertable = false)
-    private String STATE_ID ="0";
+
+    @Column(name="STATE_ID", insertable = false)
+    private String stateID ="0";
     private String TEL;
     private String TITLE;
     private String USER_ID;

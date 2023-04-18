@@ -18,6 +18,11 @@
 
 }
 
+
+.status{
+    text-align:center;
+}
+
 /*가이드 버튼*/
 .guide-button {
   margin: 10px;
@@ -122,5 +127,9 @@ button.common-button:hover {
 
   .kr-info{
       font-size: 18px;
+  }
+
+  .status{
+      text-align:left;
   }
 }

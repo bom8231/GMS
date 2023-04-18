@@ -16,14 +16,14 @@
 <div id="wrapper">
     <div class="container">
 
-        <div class="col-md-12 py-3">
+        <div class="col-md-12 py-4">
             <div class="text-center">
                 <h2>전체 예약 리스트</h2>
             </div>
 
             <div class="counts margin-top-20">
-                <span class="badge bg-secondary">전체 등록 <span th:text="${resultMap.list.totalElements}">50</span>개</span>
-                <span class="badge bg-secondary">현재 <span th:text="${resultMap.list.getSize}">15</span>개</span>
+                <span class="badge bg-secondary">전체 등록 <span th:text="${resultMap.list.totalElements}">50</span>건</span>
+                <span class="badge bg-secondary">현재 <span th:text="${#lists.size(resultMap.list.content)}">15</span>개</span>
             </div>
 
             <div>
@@ -58,40 +58,58 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th width="10%">등록번호</th>
+                        <th width="13%">등록번호</th>
                         <th width="13%">등록부서</th>
                         <th width="10%">등록자</th>
-                        <th width="30%">제목</th>
+                        <th width="15%">제목</th>
                         <th width="15%">내방자명</th>
                         <th width="10%">내방자회사</th>
+                        <th width="12%">등록일자</th>
+                        <th width="12%">방문예정일</th>
                         <th width="12%">상태</th>
+
                     </tr>
                     </thead>
                     <tbody>
-                    <tr  th:each="list,index: ${resultMap.list}" th:with="paging=${resultMap.paging}" th:data-href="@{/list/{postId}(postId=${list.id})}" >
-                        <td data-label="등록번호" th:text="${list.id}">등록번호</td>
-                        <td data-label="등록부서" th:text="${list.DEPT_ID}">등록부서</td>
-                        <td data-label="등록자"  th:text="${list.USER_ID}">등록자</td>
+                    <tr  th:each="list,index: ${resultMap.list}" th:with="paging=${resultMap.paging}" th:data-href="@{/list/detail(id=${list.id})}" >
+                        <td data-label="등록번호" th:text="${#temporals.format(#temporals.createDate(list.REQ_DATE, 'yyyy-MM-dd HH:mm:ss.S'), 'yyyyMMdd')+'-'+list.id}">등록번호</td>
+<!--                        <td data-label="등록부서" th:text="${list.DEPT_ID}">등록부서</td>-->
+<!--                        <td data-label="등록자"  th:text="${list.USER_ID}">등록자</td>-->
+                        <td data-label="등록부서">정보보안팀</td>
+                        <td data-label="등록자">김보민</td>
                         <td data-label="제목"   th:text="${list.TITLE}">이건 제목이 아주 길지롱?</td>
-                        <td data-label="내방자명" th:text="${list.VISITOR}">내방자명</td>
-                        <td data-label="내방자회사" th:text="${list.VISIT_ASSIGN}">내방자회사</td>
-                        <td data-label="상태"  th:text="${list.VISIT_PURPOSE}">방문진행중</td>
+
+                        <td data-label="내방자명" th:text="${list.VISITOR != null && !list.VISITOR.isEmpty() && list.VISITOR.contains(',') ? (list.VISITOR.endsWith(',') ? list.VISITOR.substring(0, list.VISITOR.length() - 1) : list.VISITOR.replace(',', ', ')) : (list.VISITOR != null ? list.VISITOR : '')}">
+                            내방자명
+                        </td>
+                        <td data-label="내방자회사" class="space">
+                            <span th:utext="${list.VISIT_ASSIGN != null && !list.VISIT_ASSIGN.isEmpty() && list.VISIT_ASSIGN.contains(',') ? (list.VISIT_ASSIGN.endsWith(',') ? list.VISIT_ASSIGN.substring(0, list.VISIT_ASSIGN.length() - 1) : list.VISIT_ASSIGN.replace(',', ', ')) : (list.VISIT_ASSIGN != null ? list.VISIT_ASSIGN : '')}">내방자회사</span>
+                        </td>
+                        <td data-label="등록일자" th:text="${#temporals.createDate(list.REQ_DATE, 'yyyy-MM-dd HH:mm:ss.S')}">
+                            등록일자
+                        </td>
+                        <td data-label="방문예정일" th:text="${#temporals.createDate(list.deDate, 'yyyy-MM-dd')}" >
+                            방문예정일
+                        </td>
+                        <td data-label="상태" class= "state" th:text="${list.stateID == '0' ? '방문전' :
+                                 (list.stateID == '1' ? '방문중' :
+                                  (list.stateID == '2' ? '방문완료' : '미방문'))}">
+                        </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-
             <nav aria-label="Page navigation example" style="margin-top: 10px;">
                 <ul class="pagination justify-content-center">
                     <li class="page-item" th:if="${resultMap.totalPage} > 0" th:each="index : ${#numbers.sequence(1, resultMap.totalPage)}"
                         th:with="paging=${resultMap.paging}">
                         <a class="page-link"
-                           th:href="@{/list(page=${index-1})}">
+                           th:href="@{/list(page=${index-1})}"
+                           th:classappend="${index-1 == currentPage} ? 'active' : ''">
                             <span th:text="${index}"></span>
                         </a>
                     </li>
                 </ul>
-
             </nav>
 
 

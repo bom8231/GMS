@@ -75,7 +75,7 @@
                   </td>
                   <th><label for="tel">내선번호</label></th>
                   <td>
-                    <input type="tel" class="form-control" id="tel" th:field="*{TEL}" required />
+                    <input type="tel" class="form-control" id="tel" th:field="*{TEL}"  />
                   </td>
                 </tr>
                 </tbody>
@@ -99,7 +99,7 @@
                   <td>
                     <input type="text" class="form-control" id="title"  th:field="*{TITLE}" required/>
                   </td>
-                  <th><label for="date">내방 예정일</label></th>
+                  <th><label for="date">내방예정일</label></th>
                   <td>
                     <input
                             type="date"
@@ -108,7 +108,7 @@
                             placeholder="날짜 선택"
                             aria-describedby="basic-addon2"
                             required
-                            th:field="*{DE_DATE}"
+                            th:field="*{deDate}"
                     />
                   </td>
                 </tr>
@@ -117,7 +117,7 @@
                   <th>보안스티커</th>
                   <td>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="attach" id="inlineRadio1" value="부착" th:checked="${board.ATTACH == '부착'}" th:field="*{ATTACH}" required />
+                      <input class="form-check-input" type="radio" name="attach" id="inlineRadio1" value="부착" th:checked="${board.ATTACH == '부착'}" th:field="*{ATTACH}" />
                       <label class="form-check-label" for="inlineRadio1">부착</label>
                     </div>
                     <div class="form-check form-check-inline">
