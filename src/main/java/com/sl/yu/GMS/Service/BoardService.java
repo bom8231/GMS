@@ -17,6 +17,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -26,16 +28,12 @@ public class BoardService {
     /**
      * 게시글 전체 조회
      */
-    public HashMap<String, Object> findAll(Pageable page) {
-        HashMap<String, Object> listMap = new HashMap<>();
-        Page<maintable> list = boardRepository.findAll(page);
 
-        listMap.put("list", list);
-        listMap.put("paging", list.getPageable());
-        listMap.put("totalCnt", list.getTotalElements());
-        listMap.put("totalPage", list.getTotalPages());
-        return listMap;
+    //게시글리스트처리
+    public Page<maintable> boardList(Pageable pageable){
+        return boardRepository.findAll(pageable);
     }
+
 
     /**
     * 특정 상태에 대한 게시글 조회
@@ -75,4 +73,21 @@ public class BoardService {
     public Optional<maintable> findOne(Long id) {
         return boardRepository.findById(id);
     }
+
+    /**
+     * 게시글 검색
+     */
+    public Page<maintable> boardSearchList(String searchKeyword, Pageable pageable, String type){
+        if(type.equals("visitor_name")) return boardRepository.findByVISITORContaining(searchKeyword, pageable);
+        else if(type.equals("register_name")) return boardRepository.findByuserNameContaining(searchKeyword, pageable);
+        else if(type.equals("register_company")) return boardRepository.findByvisitAssignContaining(searchKeyword, pageable);
+        else if(type.equals("title")) return boardRepository.findByTITLEContaining(searchKeyword, pageable);
+
+        return boardRepository.findByTITLEContaining(searchKeyword, pageable);
+    }
+
+    /**
+     * 상태 업데이트
+     */
+
 }
