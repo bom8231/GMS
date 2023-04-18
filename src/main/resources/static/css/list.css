@@ -37,6 +37,7 @@ color: white;
   font-size: 16px;
 }
 
+
 .table td:hover {
   cursor: pointer;
 }
@@ -45,6 +46,10 @@ color: white;
    padding: 5px;
    width: 150px;
    border:1px solid #6c757d;
+ }
+
+ .center{
+ text-align: center;
  }
 
 /* 스크롤바 스타일 초기화 */
@@ -105,23 +110,32 @@ color: white;
      border-radius: 8px;
   }
 
-  .table td {
+.table td {
     padding-left:35%;
     text-align: left;
     position: relative;
     white-space: normal;
     word-wrap: break-word;
-  }
 
-  .table td::before {
+}
+
+.table td::before {
     content: attr(data-label);
     position: absolute;
     left: 0;
     width: 30%;
-    padding-left: 15px;
+    padding-left: 10px;
     font-size: 15px;
     font-weight: bold;
     text-align: left;
-  }
+}
+
+.space{
+      min-height: 3em; /* 최소 높이 설정 */
+}
+
+ #sticker{
+ text-align: left;
+ }
 }
 

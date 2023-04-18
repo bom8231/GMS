@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/common :: head}">
+</head>
+<head>
+    <link th:href="@{/css/detail.css}" rel="stylesheet">
+
+<style>
+
+      .jb-header {
+        height: 15%;
+        padding: 20px;
+      }
+      .jb-content {
+         width: 50%;
+        height: 70%;
+        float: left;
+      }
+      .jb-sidebar {
+        width: 50%;
+         height: 35%;
+        padding: 20px;
+        float: right;
+      }
+      #jb-footer {
+        clear: both;
+        padding: 20px;
+      }
+      @media ( max-width: 480px ) {
+        .container {
+          width: auto;
+        }
+
+        .jb-header {
+          width: 100%;
+          height: auto;
+
+        }
+        .jb-content {
+          float: none;
+          width: 100%;
+          height: auto;
+        }
+        .jb-sidebar {
+          float: none;
+          width: 100%;
+          height: auto;
+        }
+      }
+
+    </style>
+</head>
+
+<body>
+
+<!-- 네비게이션 바 -->
+<nav class="navbar navbar-expand-lg" th:replace="~{fragments/common :: navBar}">
+</nav>
+<div class="container py-3" style="height:700px; ">
+        <div class="jb-header">
+            <h1>Responsive Layout</h1>
+        </div>
+        <div class="jb-content card" >
+            <div class="card-header bg-light">
+                <h5>방문 정보</h5>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <tr style="border:none;">
+                        <td>등록일</td>
+                        <td>2023-03-22</td>
+                    </tr>
+                    <tr style="border:none;">
+                        <td>내방예정일</td>
+                        <td>2023-03-28</td>
+                    </tr>
+                    <tr>
+                        <td>내방일시</td>
+                        <td>2023-03-28 오전 10:57:36</td>
+                    </tr>
+                    <tr style="border:none;">
+                        <td>내방회사</td>
+                        <td>SL(주)-진량공장</td>
+                    </tr>
+                    <tr style="border:none;">
+                        <td>차량번호</td>
+                        <td></td>
+                    </tr>
+                    <tr style="border:none;">
+                        <td>내방목적</td>
+                        <td>업무협의(면담, 회의)</td>
+                    </tr>
+                    <tr style="border:none;">
+                        <td style="border:none;">상세내역</td>
+                        <td style="border:none;"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="jb-sidebar">
+            <h2>Sidebar</h2>
+            <ul>
+                <li>Lorem</li>
+                <li>Ipsum</li>
+                <li>Dolor</li>
+            </ul>
+        </div>
+        <div class="jb-sidebar">
+            <h2>Sidebar</h2>
+            <ul>
+                <li>Lorem</li>
+                <li>Ipsum</li>
+                <li>Dolor</li>
+            </ul>
+        </div>
+        <div id="jb-footer">
+            <p>Copyright</p>
+        </div>
+        </div>
+
+
+</body>
+</html>

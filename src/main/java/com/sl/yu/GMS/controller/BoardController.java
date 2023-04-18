@@ -12,17 +12,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequiredArgsConstructor
 @Controller
 public class BoardController {
 
+
+    @Autowired
+    private BoardRepository boardRepository;
     private final BoardService boardService;
     @GetMapping("/registration")
     public String registration(Model model){
@@ -35,12 +34,7 @@ public class BoardController {
     return "redirect:/";
     }
 
-    @GetMapping("/progress")
-    public String progress(){
-        return "board/progress";
-    }
-
-    @GetMapping("/list")
+    @RequestMapping("/list")// "/list"
     public String list(Model model,
                        @PageableDefault(page = 0, sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable pageable, String searchKeyword, String type) {
         /*검색기능-3*/
@@ -65,35 +59,38 @@ public class BoardController {
 
         return "board/list";
     }
-    @GetMapping("/list/{postId}")
-    public String listbyid(@PathVariable Long postId, Model model) {
-        maintable post = boardService.findOne(postId).orElseThrow();
-        model.addAttribute("post", post);
 
-        return "board/detail2";
+    @GetMapping("/progress")
+    public String progress(){
+        return "board/progress";
     }
 
-    @GetMapping("/detail1")
-    public String detail_1(){
-        return "board/detail1";
-    }
 
-    @GetMapping("/detail2")
-    public String detail_2(){
-        return "board/detail2";
-    }
-
-    @Autowired
-    private BoardRepository boardRepository;
     @GetMapping("/checkIn")
-    public String checkIn(){
-
+    public String checkIn(Model model,
+                          @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable pageable){
+        model.addAttribute("resultMap", boardService.findStatusDateAll("0",pageable));
         return "board/checkIn";
     }
 
 
     @GetMapping("/checkOut")
-    public String checkOut(){
+    public String checkOut(Model model,
+                           @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable pageable){
+        model.addAttribute("resultMap", boardService.findStatusAll("1",pageable));
+
         return "board/checkOut";
     }
+
+    @GetMapping(value={"/list/detail", "/checkIn/detail", "/checkOut/detail"})
+    public String detail(Model model, @RequestParam(required = false) Long id){
+        if(id == null){
+            model.addAttribute("board",new maintable());
+        } else {
+            maintable board = boardRepository.findById(id).orElse(null);
+            model.addAttribute("board", board);
+        }
+        return "board/detail";
+    }
+
 }
