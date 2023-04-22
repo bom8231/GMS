@@ -155,8 +155,6 @@ public class BoardService {
         return listMap;
     }
 
-    /**
-     * 상태 업데이트
-     */
+
 
 }

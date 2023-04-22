@@ -3,7 +3,7 @@ package com.sl.yu.GMS.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -27,11 +27,11 @@ public class maintable {
     private String DEPT_ID;
     private String DEPT_NAME;
     private String EMAIL;
-    private Date END_DATE;
+    private String END_DATE;
     private String FILE_ID;
     private String PLANT;
     @Column(name="REPLY_DATE")
-    private Date replyDate;
+    private String replyDate;
     @Column(insertable = false)
     private String REQ_DATE;
     @PrePersist

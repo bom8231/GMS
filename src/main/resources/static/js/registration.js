@@ -32,7 +32,7 @@ function addTable() {
   companyInput.setAttribute("type", "text");
   companyInput.classList.add("form-control");
   companyInput.setAttribute("id", `visit-company-${counter}`);
-  companyInput.setAttribute("name", "VISIT_ASSIGN");
+  companyInput.setAttribute("name", "visitAssign");
   companyHeader.appendChild(companyLabel);
   tableRow2.appendChild(companyHeader);
   const companyData = document.createElement("td");
