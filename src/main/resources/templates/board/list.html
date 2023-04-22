@@ -23,8 +23,8 @@
 
             <div class="counts margin-top-20">
 
-                <span class="badge bg-secondary">전체 등록 : 50개</span>
-                <span class="badge bg-secondary">현재 : 15개</span>
+                <span class="badge bg-secondary">전체 등록 <span th:text="${list.totalElements}">50</span>건</span>
+                <span class="badge bg-secondary">현재 <span th:text="${#lists.size(list.content)}">15</span>개</span>
 
             </div>
 
@@ -39,13 +39,14 @@
                                 <option value="register_company">내방자회사</option>
                                 <option value="title">제목</option>
                             </select>
-                            <input type="text" name="searchKeyword" class="form-control" placeholder="검색어" aria-label="Text input with dropdown button">
+                            <input type="text" name="searchKeyword" class="form-control" placeholder="검색어" aria-label="Text input with dropdown button" required>
                             <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="submit">조회</button>
+                                <button class="btn btn-outline-secondary" type="submit">검색</button>
                             </div>
                         </div>
                     </form>
                 </div>
+                <form th:action="@{/list}" method="get">
                 <div style="float: right; ">
                     <span class="badge bg-secondary"></span>
                     <div class="input-group mb-3">
@@ -55,6 +56,7 @@
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
 
             <!-- 목록-->
@@ -76,14 +78,36 @@
                     </thead>
                     <tbody>
 
-                    <tr  th:each="maintable : ${list}" th:data-href="@{/list/{postId}(postId=${maintable.id})}" >
-                        <td data-label="등록번호" th:text="${maintable.id}">등록번호</td>
+                    <tr  th:each="maintable : ${list}" th:data-href="@{/list/detail(id=${maintable.id})}" >
+                        <td data-label="등록번호" th:text="${#temporals.format(#temporals.createDate(maintable.REQ_DATE, 'yyyy-MM-dd HH:mm:ss.S'), 'yyyyMMdd')+'-'+maintable.id}">등록번호</td>
                         <td data-label="등록부서" th:text="${maintable.DEPT_ID}">등록부서</td>
                         <td data-label="등록자"  th:text="${maintable.USER_ID}">등록자</td>
                         <td data-label="제목"   th:text="${maintable.TITLE}">이건 제목이 아주 길지롱?</td>
-                        <td data-label="내방자명" th:text="${maintable.VISITOR}">내방자명</td>
-                        <td data-label="내방자회사" th:text="${maintable.visitAssign}">내방자회사</td>
-                        <td data-label="상태"  th:text="${maintable.VISIT_PURPOSE}">방문진행중</td>
+                        <td data-label="내방자명"  th:text="${maintable.VISITOR != null && !maintable.VISITOR.isEmpty() &&
+                                                  maintable.VISITOR.contains(',') ? (maintable.VISITOR.endsWith(',') ?
+                                                  maintable.VISITOR.substring(0, maintable.VISITOR.length() - 1) :
+                                                   maintable.VISITOR.replace(',', ', ')) :
+                                                  (maintable.VISITOR != null ? maintable.VISITOR : '')}">
+                            내방자명
+                        </td>
+                        <td data-label="내방자회사" >
+                            <span th:utext="${maintable.visitAssign != null &&
+                            !maintable.visitAssign.isEmpty() && maintable.visitAssign.contains(',') ?
+                            (maintable.visitAssign.endsWith(',') ? maintable.visitAssign.substring(0, maintable.visitAssign.length() - 1) :
+                            maintable.visitAssign.replace(',', ', ')) : (maintable.visitAssign != null ? maintable.visitAssign : '')}">
+                                내방자회사
+                            </span>
+                        </td>
+                        <td data-label="등록일자" th:text="${#temporals.createDate(maintable.REQ_DATE, 'yyyy-MM-dd HH:mm:ss.S')}">
+                            등록일자
+                        </td>
+                        <td data-label="방문예정일" th:text="${#temporals.createDate(maintable.deDate, 'yyyy-MM-dd')}" >
+                            방문예정일
+                        </td>
+                        <td data-label="상태" class= "state" th:text="${maintable.stateID == '0' ? '방문전' :
+                                 (maintable.stateID == '1' ? '방문중' :
+                                  (maintable.stateID == '2' ? '방문완료' : '미방문'))}">
+                        </td>
 
                     </tr>
                     </tbody>
@@ -92,21 +116,16 @@
             <nav aria-label="Page navigation example" style="margin-top: 10px;">
                 <ul class="pagination justify-content-center">
                     <th:block>
-
                         <li class="page-item" th:each="page : ${#numbers.sequence(1, endPage)}">
                             <a class="page-link" th:if="${page != nowPage}"
                                th:href="@{/list(page = ${page -1}, searchKeyword = ${param.searchKeyword}, type = ${param.type})}"
                                th:text="${page}">
                             </a>
-                            <a class="page-link" th:if="${page == nowPage}" th:text="${page}" style="background-color : #539acc"></a>
+                            <a class="page-link" th:if="${page == nowPage}" th:text="${page}" style="background-color:#539acc; color:white;"></a>
                         </li>
                     </th:block>
-
-
-
                 </ul>
             </nav>
-
 
         </div>
     </div>

@@ -3,7 +3,7 @@ package com.sl.yu.GMS.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -18,7 +18,6 @@ public class maintable {
     @Column(name = "VISIT_ID")
     private Long id;
     private String ATTACH;
-    private String BACK_TIME;
     private String CAR_NUMBER;
     private String CARD_ID;
     private String COMPLETE;
@@ -28,11 +27,11 @@ public class maintable {
     private String DEPT_ID;
     private String DEPT_NAME;
     private String EMAIL;
-    private Date END_DATE;
+    private String END_DATE;
     private String FILE_ID;
     private String PLANT;
     @Column(name="REPLY_DATE")
-    private Date replyDate;
+    private String replyDate;
     @Column(insertable = false)
     private String REQ_DATE;
     @PrePersist
@@ -52,7 +51,6 @@ public class maintable {
     private String visitAssign;
     private String VISIT_CLASS;
     private String VISIT_PURPOSE;
-    private String VISIT_TIME;
     private String VISITOR;
     private String VISITOR_EMAIL;
     private String VISITOR_PHONE;

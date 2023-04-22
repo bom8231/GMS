@@ -86,8 +86,6 @@ public class BoardService {
         return boardRepository.findByTITLEContaining(searchKeyword, pageable);
     }
 
-    /**
-     * 상태 업데이트
-     */
+
 
 }

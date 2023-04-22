@@ -3,8 +3,10 @@ package com.sl.yu.GMS.controller;
 import com.sl.yu.GMS.model.maintable;
 import com.sl.yu.GMS.Service.BoardService;
 import com.sl.yu.GMS.repository.BoardRepository;
+import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +15,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import jakarta.persistence.EntityManager;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -33,10 +41,21 @@ public class BoardController {
     boardRepository.save(board);
     return "redirect:/";
     }
-
+    @Autowired
+    private EntityManager entityManager;
     @RequestMapping("/list")// "/list"
     public String list(Model model,
                        @PageableDefault(page = 0, sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable pageable, String searchKeyword, String type) {
+        // 날짜 지난 것 미방문 상태로 바꾸기
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String dateStr = now.format(formatter);
+        Page <maintable> boards = boardRepository.findByStateIDAndDeDateLessThan ("0", dateStr, pageable);
+        for (maintable board : boards) {
+            board.setStateID("3");
+            boardRepository.save(board);
+        }
+
         /*검색기능-3*/
         Page<maintable> list = null;
 
@@ -56,6 +75,8 @@ public class BoardController {
         model.addAttribute("nowPage", nowPage);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
+
+
 
         return "board/list";
     }
@@ -81,7 +102,7 @@ public class BoardController {
 
         return "board/checkOut";
     }
-
+    //detail
     @GetMapping(value={"/list/detail", "/checkIn/detail", "/checkOut/detail"})
     public String detail(Model model, @RequestParam(required = false) Long id){
         if(id == null){
@@ -91,6 +112,70 @@ public class BoardController {
             model.addAttribute("board", board);
         }
         return "board/detail";
+    }
+
+    //접수처리
+    @PostMapping("/checkIn/receipt/{id}")
+    public String receiptCheckIn(Model model, @PathVariable("id") Long id) {
+        maintable board = boardRepository.findById(id).orElse(null);
+        String replyDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"));
+        if (board != null) {
+            board.setStateID("1");
+            board.setReplyDate(replyDate);
+            boardRepository.save(board);
+        }
+        return "redirect:/checkIn";
+    }
+
+    @PostMapping("/list/receipt/{id}")
+    public String receiptList(Model model, @PathVariable("id") Long id) {
+        maintable board = boardRepository.findById(id).orElse(null);
+        String replyDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"));
+        if (board != null) {
+            board.setStateID("1");
+            board.setReplyDate(replyDate);
+            boardRepository.save(board);
+        }
+        return "redirect:/list";
+    }
+
+    //완료처리
+    @PostMapping("/checkOut/complete/{id}")
+    public String completeCheckout(Model model, @PathVariable("id") Long id) {
+        maintable board = boardRepository.findById(id).orElse(null);
+        String endDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"));
+        if (board != null) {
+            board.setStateID("2");
+            board.setEND_DATE(endDate);
+            boardRepository.save(board);
+        }
+        return "redirect:/checkOut";
+    }
+
+    @PostMapping("/list/complete/{id}")
+    public String completeList(Model model, @PathVariable("id") Long id) {
+        maintable board = boardRepository.findById(id).orElse(null);
+        String endDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"));
+        if (board != null) {
+            board.setStateID("2");
+            board.setEND_DATE(endDate);
+            boardRepository.save(board);
+        }
+        return "redirect:/list";
+    }
+
+    //삭제
+    @PostMapping("/checkIn/delete/{id}")
+    public String delete(Model model, @PathVariable("id") Long id) {
+            boardRepository.deleteById(id);
+        return "redirect:/checkIn";
+    }
+
+    //수정
+    @GetMapping("/checkIn/edit/{id}")
+    public String checkInEdit(Model model){
+        model.addAttribute("board",new maintable());
+        return "board/registration";
     }
 
 }
