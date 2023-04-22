@@ -18,7 +18,6 @@ public class maintable {
     @Column(name = "VISIT_ID")
     private Long id;
     private String ATTACH;
-    private String BACK_TIME;
     private String CAR_NUMBER;
     private String CARD_ID;
     private String COMPLETE;
@@ -52,7 +51,6 @@ public class maintable {
     private String visitAssign;
     private String VISIT_CLASS;
     private String VISIT_PURPOSE;
-    private String VISIT_TIME;
     private String VISITOR;
     private String VISITOR_EMAIL;
     private String VISITOR_PHONE;
