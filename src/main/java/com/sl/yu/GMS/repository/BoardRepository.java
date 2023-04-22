@@ -12,7 +12,6 @@ import java.util.List;
 public interface BoardRepository extends JpaRepository<maintable,Long> {
 
 
-
     /*검색기능-1*/
     Page<maintable> findByVISITORContaining(String searchKeyword, Pageable pageable);
     Page<maintable> findByuserNameContaining(String searchKeyword, Pageable pageable);
@@ -22,6 +21,18 @@ public interface BoardRepository extends JpaRepository<maintable,Long> {
     Page<maintable> findByStateID(String stateID, Pageable page);
     Page<maintable> findByStateIDAndDeDate(String stateID, String date, Pageable page);
 
+    //check in
+    Page<maintable> findByVISITORContainingAndStateIDAndDeDate(String searchKeyword, String stateID, String date, Pageable page);
+    Page<maintable> findByuserNameContainingAndStateIDAndDeDate(String searchKeyword, String stateID, String date, Pageable page);
+    Page<maintable> findByvisitAssignContainingAndStateIDAndDeDate(String searchKeyword, String stateID, String date, Pageable page);
+    Page<maintable> findByTITLEContainingAndStateIDAndDeDate(String searchKeyword, String stateID, String date, Pageable page);
+    //check out
+    Page<maintable> findByVISITORContainingAndStateID(String searchKeyword,String stateID, Pageable page);
+    Page<maintable> findByuserNameContainingAndStateID(String searchKeyword,String stateID, Pageable page);
+    Page<maintable> findByvisitAssignContainingAndStateID(String searchKeyword,String stateID, Pageable page);
+    Page<maintable> findByTITLEContainingAndStateID(String searchKeyword,String stateID, Pageable page);
+
     Page<maintable> findByStateIDAndDeDateLessThan (String stateID, String now, Pageable page);
+
 
 }
