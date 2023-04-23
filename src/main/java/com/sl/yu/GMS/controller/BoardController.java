@@ -1,12 +1,11 @@
 package com.sl.yu.GMS.controller;
 
-import com.sl.yu.GMS.model.maintable;
 import com.sl.yu.GMS.Service.BoardService;
+import com.sl.yu.GMS.model.maintable;
 import com.sl.yu.GMS.repository.BoardRepository;
-import jakarta.persistence.Query;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,14 +14,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import jakarta.persistence.EntityManager;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -43,6 +38,7 @@ public class BoardController {
     boardRepository.save(board);
     return "redirect:/";
     }
+
     @Autowired
     private EntityManager entityManager;
     @RequestMapping("/list")// "/list"
@@ -172,10 +168,25 @@ public class BoardController {
     }
 
     //수정
-    @GetMapping("/checkIn/edit/{id}")
-    public String checkInEdit(Model model){
-        model.addAttribute("board",new maintable());
-        return "board/registration";
+    @GetMapping(value={ "/checkIn/edit", "/checkOut/edit"})
+    public String edit(Model model, @RequestParam(required = false) Long id){
+        if(id == null){
+            model.addAttribute("board",new maintable());
+        } else {
+            maintable board = boardRepository.findById(id).orElse(null);
+            model.addAttribute("board", board);
+        }
+        return "board/edit";
+    }
+
+    @PostMapping("/checkIn/edit")
+    public String checkInEdit(@ModelAttribute maintable board){
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+        String dateStr = now.format(formatter);
+        board.setREQ_DATE(dateStr);
+        boardRepository.save(board);
+        return "redirect:/checkIn";
     }
 
 }

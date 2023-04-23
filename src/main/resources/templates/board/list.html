@@ -33,9 +33,9 @@
                     <td>상태선택</td>
                     <td>
                         <div class="form-group">
-                            <input class="position-checkbox" selected name ="state"  type="checkbox" value="0">방문전</input>
-                            <input class="position-checkbox"  name ="state" type="checkbox" value="1">방문중</input>
-                            <input class="position-checkbox"  name ="state" type="checkbox" value="2">방문완료</input>
+                            <input class="position-checkbox"  name ="state"  type="checkbox" value="0">방문전
+                            <input class="position-checkbox"  name ="state" type="checkbox" value="1">방문중
+                            <input class="position-checkbox"  name ="state" type="checkbox" value="2">방문완료
 
                         </div>
 
@@ -72,7 +72,7 @@
                         <th width="15%">제목</th>
                         <th width="15%">내방자명</th>
                         <th width="10%">내방자회사</th>
-                        <th width="12%">등록일자</th>
+                        <th width="12%">등록일시</th>
                         <th width="12%">방문예정일</th>
                         <th width="12%">상태</th>
 
@@ -81,14 +81,22 @@
                     <tbody>
 
                     <tr  th:each="list,index: ${resultMap.list}" th:with="paging=${resultMap.paging}" th:data-href="@{/list/detail(id=${list.id})}" >
-                        <td data-label="등록번호" th:text="${list.id}">등록번호</td>
+                        <td data-label="등록번호"
+                            th:text="${#temporals.format(#temporals.createDate(list.REQ_DATE, 'yyyy-MM-dd HH:mm:ss.S'),
+                                 'yyyyMMdd')+'-'+list.id}">
+                            등록번호
+                        </td>
                         <td data-label="등록부서" th:text="${list.DEPT_ID}">등록부서</td>
                         <td data-label="등록자"  th:text="${list.USER_ID}">등록자</td>
                         <td data-label="제목"   th:text="${list.TITLE}">이건 제목이 아주 길지롱?</td>
-                        <td data-label="내방자명" th:text="${list.VISITOR}">내방자명</td>
-                        <td data-label="내방자회사" th:text="${list.visitAssign}">내방자회사</td>
-                        <td data-label="등록일자" th:text="${#temporals.createDate(list.REQ_DATE, 'yyyy-MM-dd HH:mm:ss.S')}">
-                            등록일자
+                        <td data-label="내방자명" th:text="${list.VISITOR != null && !list.VISITOR.isEmpty() && list.VISITOR.contains(',') ? (list.VISITOR.endsWith(',') ? list.VISITOR.substring(0, list.VISITOR.length() - 1) : list.VISITOR.replace(',', ', ')) : (list.VISITOR != null ? list.VISITOR : '')}">
+                            내방자명
+                        </td>
+                        <td data-label="내방자회사">
+                            <span th:utext="${list.visitAssign != null && !list.visitAssign.isEmpty() && list.visitAssign.contains(',') ? (list.visitAssign.endsWith(',') ? list.visitAssign.substring(0, list.visitAssign.length() - 1) : list.visitAssign.replace(',', ', ')) : (list.visitAssign != null ? list.visitAssign : '')}">내방자회사</span>
+                        </td>
+                        <td data-label="등록일시" th:text="${#temporals.format(#temporals.createDateTime(list.REQ_DATE, 'yyyy-MM-dd HH:mm:ss.S'), 'yyyy-MM-dd a hh:mm')}">
+                            등록일시
                         </td>
                         <td data-label="방문예정일" th:text="${#temporals.createDate(list.deDate, 'yyyy-MM-dd')}" >
                             방문예정일

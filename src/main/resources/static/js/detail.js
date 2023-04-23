@@ -18,3 +18,7 @@ function confirmReceipt() {
     return confirm("삭제하시겠습니까?");
   }
 
+//완료 여부 확인
+ function confirmComplete() {
+    return confirm("완료하시겠습니까?");
+  }

@@ -1,4 +1,4 @@
-let counter=1;
+let counter=-1;
 
 function addTable() {
   const newTable = document.createElement("table");
@@ -114,7 +114,7 @@ function addTable() {
   tables.appendChild(newTable);
 
   // counter를 증가
-  counter++;
+  counter--;
   }
 
 //테이블 삭제 함수
@@ -143,6 +143,6 @@ function addTable() {
   });
 
   //등록 여부 확인
-  function confirmSubmit() {
-   return confirm("등록하시겠습니까?");
+  function confirmEdit() {
+   return confirm("수정하시겠습니까?");
   }

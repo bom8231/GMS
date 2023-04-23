@@ -71,6 +71,7 @@ public class BoardService {
             list = boardRepository.findByvisitAssignContainingAndStateID(searchKeyword, stateID, page);
         else if(type.equals("title"))
             list = boardRepository.findByTITLEContainingAndStateID(searchKeyword, stateID, page);
+        else  list = boardRepository.findByStateID(stateID,page);
         listMap.put("list", list);
         listMap.put("paging", list.getPageable());
         listMap.put("totalCnt", list.getTotalElements());
@@ -114,7 +115,8 @@ public class BoardService {
             list = boardRepository.findByvisitAssignContainingAndStateIDAndDeDate(searchKeyword, stateID,  currentDate, page);
         else if(type.equals("title"))
             list = boardRepository.findByTITLEContainingAndStateIDAndDeDate(searchKeyword, stateID,  currentDate, page);
-
+        else
+            list = boardRepository.findByStateIDAndDeDate(stateID,  currentDate, page);
         listMap.put("list", list);
         listMap.put("paging", list.getPageable());
         listMap.put("totalCnt", list.getTotalElements());
