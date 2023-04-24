@@ -7,3 +7,4 @@ document.querySelectorAll('.table tr').forEach(tr => {
     }
   });
 });
+

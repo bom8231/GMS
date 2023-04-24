@@ -16,7 +16,7 @@
     <div class="container">
 
         <div class="col-md-12 py-4">
-            <div class="text-center">
+            <div class="text-center" onclick="location.href='/checkIn';">
                 <span class="date" th:text="${#temporals.format(#temporals.createNow(), 'yyyy. MM. dd')}"></span>
 
                 <span  class="day" th:text="${#temporals.format(#temporals.createNow(), '(EEE)')}"></span>
@@ -30,88 +30,120 @@
             </div>
 
             <div>
-                <div style="float: left; ">
-                    <div class="input-group mb-3" >
-                        <select class="form-select btn-outline-secondary" id="searchDrop" name="searchDrop" >
-                            <option value="" selected  style="display: none;">검색 옵션 선택</option>
-                            <option value="내방자명">내방자명</option>
-                            <option value="등록자명">등록자명</option>
-                            <option value="내방자회사">내방자회사</option>
-                            <option value="제목">제목</option>
-                        </select>
-                        <input type="text" class="form-control" placeholder="검색어" aria-label="Text input with dropdown button" required>
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" >검색</button>
+                <div style="float:left;">
+                    <form th:action="@{/checkIn}" method="get">
+                        <div class="input-group mb-3" >
+                            <select required class="form-select btn-outline-secondary" id="searchDrop" name="type" >
+                                <option value="" style="display: none;">검색 옵션 선택</option>
+                                <option value="visitor_name">내방자명</option>
+                                <option value="register_name">등록자명</option>
+                                <option value="register_company">내방자회사</option>
+                                <option value="title">제목</option>
+                            </select>
+                            <input required type="text" name="searchKeyword" class="form-control" placeholder="검색어" aria-label="Text input with dropdown button">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit">조회</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
 
-            <!-- 목록-->
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th width="13%">등록번호</th>
-                        <th width="13%">등록부서</th>
-                        <th width="10%">등록자</th>
-                        <th width="15%">제목</th>
-                        <th width="15%">내방자명</th>
-                        <th width="10%">내방자회사</th>
-                        <th width="12%">등록일자</th>
-                        <th width="12%">차량번호</th>
-                        <th width="5%">보안스티커</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr  th:each="list,index: ${resultMap.list}" th:with="paging=${resultMap.paging}" th:data-href="@{/checkIn/detail(id=${list.id})}" >
-                        <td data-label="등록번호" th:text="${#temporals.format(#temporals.createDate(list.REQ_DATE, 'yyyy-MM-dd HH:mm:ss.S'), 'yyyyMMdd')+'-'+list.id}">등록번호</td>
-                        <!--                        <td data-label="등록부서" th:text="${list.DEPT_ID}">등록부서</td>-->
-                        <!--                        <td data-label="등록자"  th:text="${list.USER_ID}">등록자</td>-->
-                        <td data-label="등록부서">정보보안팀</td>
-                        <td data-label="등록자">김보민</td>
-                        <td data-label="제목"   th:text="${list.TITLE}">이건 제목이 아주 길지롱?</td>
-                        <td data-label="내방자명" th:text="${list.VISITOR != null && !list.VISITOR.isEmpty() && list.VISITOR.contains(',') ? (list.VISITOR.endsWith(',') ? list.VISITOR.substring(0, list.VISITOR.length() - 1) : list.VISITOR.replace(',', ', ')) : (list.VISITOR != null ? list.VISITOR : '')}">
-                            내방자명
-                        </td>
-                        <td data-label="내방자회사">
-                            <span th:utext="${list.visitAssign != null && !list.visitAssign.isEmpty() && list.visitAssign.contains(',') ? (list.visitAssign.endsWith(',') ? list.visitAssign.substring(0, list.visitAssign.length() - 1) : list.visitAssign.replace(',', ', ')) : (list.visitAssign != null ? list.visitAssign : '')}">내방자회사</span>
-                        </td>
-                        <td data-label="등록일자" th:text="${#temporals.createDate(list.REQ_DATE, 'yyyy-MM-dd HH:mm:ss.S')}">
-                            등록일자
-                        </td>
-                        <td data-label="차량번호"
-                            th:text="${list.CAR_NUMBER}"
-                            id="carNum">
-                            차량번호
-                        </td>
-                        <td data-label="보안스티커"
-                            id = "sticker"
-                            th:text="${list.ATTACH}" >
-                            보안스티커
-                        </td>
 
-                    </tr>
-                    </tbody>
-                </table>
+                <!-- 목록-->
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th width="13%">등록번호</th>
+                            <th width="13%">등록부서</th>
+                            <th width="10%">등록자</th>
+                            <th width="15%">제목</th>
+                            <th width="15%">내방자명</th>
+                            <th width="10%">내방자회사</th>
+                            <th width="12%">등록일자</th>
+                            <th width="12%">차량번호</th>
+                            <th width="5%">보안스티커</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr  th:each="list,index: ${resultMap.list}" th:with="paging=${resultMap.paging}" th:data-href="@{/checkIn/detail(id=${list.id})}" >
+                            <td data-label="등록번호" th:text="${#temporals.format(#temporals.createDate(list.REQ_DATE, 'yyyy-MM-dd HH:mm:ss.S'), 'yyyyMMdd')+'-'+list.id}">등록번호</td>
+                            <!--                        <td data-label="등록부서" th:text="${list.DEPT_ID}">등록부서</td>-->
+                            <!--                        <td data-label="등록자"  th:text="${list.USER_ID}">등록자</td>-->
+                            <td data-label="등록부서">정보보안팀</td>
+                            <td data-label="등록자">김보민</td>
+                            <td data-label="제목"   th:text="${list.TITLE}">이건 제목이 아주 길지롱?</td>
+                            <td data-label="내방자명" th:text="${list.VISITOR != null && !list.VISITOR.isEmpty() && list.VISITOR.contains(',') ? (list.VISITOR.endsWith(',') ? list.VISITOR.substring(0, list.VISITOR.length() - 1) : list.VISITOR.replace(',', ', ')) : (list.VISITOR != null ? list.VISITOR : '')}">
+                                내방자명
+                            </td>
+                            <td data-label="내방자회사">
+                                <span th:utext="${list.visitAssign != null && !list.visitAssign.isEmpty() && list.visitAssign.contains(',') ? (list.visitAssign.endsWith(',') ? list.visitAssign.substring(0, list.visitAssign.length() - 1) : list.visitAssign.replace(',', ', ')) : (list.visitAssign != null ? list.visitAssign : '')}">내방자회사</span>
+                            </td>
+                            <td data-label="등록일자" th:text="${#temporals.createDate(list.REQ_DATE, 'yyyy-MM-dd HH:mm:ss.S')}">
+                                등록일자
+                            </td>
+                            <td data-label="차량번호"
+                                th:text="${list.CAR_NUMBER}" >
+                                차량번호
+                            </td>
+                            <td data-label="보안스티커"
+                                id = "sticker"
+                                th:text="${list.ATTACH}" >
+                                보안스티커
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <nav aria-label="Page navigation example" style="margin-top: 10px;">
+                    <ul class="pagination  justify-content-center" th:with="start=${T(java.lang.Math).floor(resultMap.list.number/10)*10 + 1},
+                    last=(${start + 9 < resultMap.list.getTotalPages ? start + 9 : resultMap.list.getTotalPages})">
+                        <li>
+                            <a class="page-link" th:href="@{/checkIn(page=0, searchKeyword = ${param.searchKeyword},type = ${param.type})}" aria-label="First">
+                                <span aria-hidden="true">처음</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="page-link" th:href="@{/checkIn(page=${start-1}, searchKeyword = ${param.searchKeyword},type = ${param.type})}" aria-label="First">
+                                <span aria-hidden="true"><<</span>
+                            </a>
+                        </li>
+                        <li class="page-item" th:classappend="${!resultMap.list.hasPrevious} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/checkIn(page=${resultMap.list.number-1}, searchKeyword = ${param.searchKeyword},type = ${param.type})}">
+                                <span>이전</span>
+                            </a>
+                        </li>
+                        <li th:each="page: ${#numbers.sequence(start, last)}">
+                            <a class="page-link" th:if="${page != resultMap.list.number + 1}"
+                               th:text="${page}" th:href="@{/checkIn(page=${page-1}, searchKeyword = ${param.searchKeyword},type = ${param.type})}"></a>
+                            <a class="page-link" th:if="${page == resultMap.list.number + 1}" th:text="${page}" style="background-color : #539acc"></a>
+                        </li>
+                        <li class="page-item"  th:classappend="${!resultMap.list.hasNext} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/checkIn(page=${resultMap.list.number+1}, searchKeyword = ${param.searchKeyword},type = ${param.type})}">
+                                <span aria-hidden="true">다음</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="page-link" th:href="@{/checkIn(page=${last-1}, searchKeyword = ${param.searchKeyword},type = ${param.type})}" aria-label="First">
+                                <span aria-hidden="true">>></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="page-link" th:href="@{/checkIn(page=${resultMap.list.getTotalPages-1}, searchKeyword = ${param.searchKeyword},type = ${param.type})}" aria-label="last">
+                                <span aria-hidden="true">끝</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+
             </div>
-            <nav aria-label="Page navigation example" style="margin-top: 10px;">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item" th:if="${resultMap.totalPage} > 0" th:each="index : ${#numbers.sequence(1, resultMap.totalPage)}"
-                        th:with="paging=${resultMap.paging}">
-                        <a class="page-link"
-                           th:href="@{/checkIn(page=${index-1})}"
-                           th:classappend="${index-1 == currentPage} ? 'active' : ''">
-                            <span th:text="${index}"></span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-
-
         </div>
-    </div>
 
-</div>
+    </div>
 </div>
 
 <script src="js/list.js"></script>

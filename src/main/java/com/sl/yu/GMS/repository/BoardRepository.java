@@ -6,18 +6,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Date;
 import java.util.List;
 
 
 public interface BoardRepository extends JpaRepository<maintable,Long> {
 
 
-    /*검색기능-1*/
-    Page<maintable> findByVISITORContaining(String searchKeyword, Pageable pageable);
-    Page<maintable> findByuserNameContaining(String searchKeyword, Pageable pageable);
-    Page<maintable> findByvisitAssignContaining(String searchKeyword, Pageable pageable);
-    Page<maintable> findByTITLEContaining(String searchKeyword, Pageable pageable);
-
+    /*전체 리스트 검색기능-1*/
+    Page<maintable> findByVISITORContainingAndDeDateLessThanEqualAndDeDateGreaterThanEqual(String searchKeyword, String endDate, String startDate, Pageable pageable);
+    Page<maintable> findByuserNameContainingAndDeDateLessThanEqualAndDeDateGreaterThanEqual(String searchKeyword, String endDate, String startDate, Pageable pageable);
+    Page<maintable> findByvisitAssignContainingAndDeDateLessThanEqualAndDeDateGreaterThanEqual(String searchKeyword, String endDate, String startDate, Pageable pageable);
+    Page<maintable> findByTITLEContainingAndDeDateLessThanEqualAndDeDateGreaterThanEqual(String searchKeyword, String endDate, String startDate, Pageable pageable);
+    Page<maintable> findByDeDateLessThanEqualAndDeDateGreaterThanEqual(String endDate, String startDate, Pageable pageable);
     Page<maintable> findByStateID(String stateID, Pageable page);
     Page<maintable> findByStateIDAndDeDate(String stateID, String date, Pageable page);
 

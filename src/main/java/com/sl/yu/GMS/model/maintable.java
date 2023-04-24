@@ -28,7 +28,6 @@ public class maintable {
     private String DEPT_NAME;
     private String EMAIL;
     private String END_DATE;
-    private String FILE_ID;
     private String PLANT;
     @Column(name="REPLY_DATE")
     private String replyDate;
@@ -54,5 +53,12 @@ public class maintable {
     private String VISITOR;
     private String VISITOR_EMAIL;
     private String VISITOR_PHONE;
+    @Column(name = "ORIGIN_NAME")
+    private String originName;
 
+    @Column(name = "SAVED_NAME")
+    private String savedName;
+
+    @Column(name = "SAVED_PATH")
+    private String savedPath;
 }
