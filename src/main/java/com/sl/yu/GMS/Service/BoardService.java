@@ -99,6 +99,7 @@ public class BoardService {
             list = boardRepository.findByvisitAssignContainingAndStateID(searchKeyword, stateID, page);
         else if(type.equals("title"))
             list = boardRepository.findByTITLEContainingAndStateID(searchKeyword, stateID, page);
+
         else
             list = boardRepository.findByStateID(stateID,page);
 

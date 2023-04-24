@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<form action="#" th:action="@{/registration}" th:object="${board}" method="post" onsubmit="return confirmSubmit();">
+<form action="#" th:action="@{/registration}" th:object="${board}" method="post" enctype="multipart/form-data" onsubmit="return confirmSubmit();">
   <div class="content">
     <!-- 페이지 내용 -->
     <!-- 네비게이션 바 -->
@@ -162,9 +162,7 @@
                 <tr>
                   <th>파일 첨부</th>
                   <td colspan="3">
-                    <form method="POST" action="/upload" enctype="multipart/form-data">
-                      <input type="file" name="file" />
-                    </form>
+                      <input type="file" multiple="multiple" name="files">
                   </td>
                 </tr>
                 </tbody>
@@ -239,6 +237,7 @@
                   </td>
                 </tr>
               </table>
+
             </div>
 
           </div>
@@ -254,5 +253,8 @@
 </form>
 
 <script src="js/registration.js"></script>
+<script type="text/javascript">
+                setCounter(3);
+</script>
 </body>
 </html>

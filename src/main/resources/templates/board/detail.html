@@ -16,11 +16,9 @@
 <div id="wrapper">
     <div class="container">
 
-            <th:block th:if="${board.stateID == '0'}">
+            <th:block th:if="${board.stateID == '0'} or ${board.stateID == '3'}">
             <div class="btn-group">
-                <form action="#" th:action="@{/checkIn/edit/{boardId}(boardId=${board.id})}" th:object="${board}" method="get">
-                         <button class="edit" name="edit" type="submit">수정</button>
-                </form>
+                <button class="edit" type="button" th:onclick="'location.href=\'' + @{/checkIn/edit(id=${board.id})} + '\''">수정</button>
                 <form action="#" th:action="@{/checkIn/delete/{boardId}(boardId=${board.id})}" th:object="${board}" method="post" onsubmit="return confirmDelete();">
                          <button class="remove" name="remove" type="submit">삭제</button>
                 </form>

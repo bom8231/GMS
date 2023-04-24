@@ -6,7 +6,8 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,6 +18,7 @@ public class maintable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "VISIT_ID")
     private Long id;
+
     private String ATTACH;
     private String CAR_NUMBER;
     private String CARD_ID;
@@ -53,6 +55,7 @@ public class maintable {
     private String VISITOR;
     private String VISITOR_EMAIL;
     private String VISITOR_PHONE;
+    
     @Column(name = "ORIGIN_NAME")
     private String originName;
 
