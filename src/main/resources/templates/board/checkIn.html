@@ -74,14 +74,19 @@
                             </td>
                             <!--                        <td data-label="등록부서" th:text="${list.DEPT_ID}">등록부서</td>-->
                             <!--                        <td data-label="등록자"  th:text="${list.USER_ID}">등록자</td>-->
-                            <td data-label="등록부서">정보보안팀</td>
-                            <td data-label="등록자">김보민</td>
+                            <td data-label="등록부서" th:text="${list.DEPT_ID}">등록부서</td>
+                            <td data-label="등록자"  th:text="${list.userName}">등록자</td>
                             <td data-label="제목"   th:text="${list.TITLE}">이건 제목이 아주 길지롱?</td>
                             <td data-label="내방자명" th:text="${list.VISITOR != null && !list.VISITOR.isEmpty() && list.VISITOR.contains(',') ? (list.VISITOR.endsWith(',') ? list.VISITOR.substring(0, list.VISITOR.length() - 1) : list.VISITOR.replace(',', ', ')) : (list.VISITOR != null ? list.VISITOR : '')}">
                                 내방자명
                             </td>
-                            <td data-label="내방자회사">
-                                <span th:utext="${list.visitAssign != null && !list.visitAssign.isEmpty() && list.visitAssign.contains(',') ? (list.visitAssign.endsWith(',') ? list.visitAssign.substring(0, list.visitAssign.length() - 1) : list.visitAssign.replace(',', ', ')) : (list.visitAssign != null ? list.visitAssign : '')}">내방자회사</span>
+                            <td data-label="내방자회사" >
+                            <span th:utext="${list.visitAssign != null &&
+                            !list.visitAssign.isEmpty() && list.visitAssign.contains(',') ?
+                            (list.visitAssign.endsWith(',') ? list.visitAssign.substring(0, list.visitAssign.length() - 1) :
+                            list.visitAssign.replace(',', ', ')) : (list.visitAssign != null ? list.visitAssign : '')}">
+                                내방자회사
+                            </span>
                             </td>
                             <td data-label="등록일시" th:text="${#temporals.format(#temporals.createDateTime(list.REQ_DATE, 'yyyy-MM-dd HH:mm:ss.S'), 'yyyy-MM-dd a hh:mm')}">
                                 등록일시

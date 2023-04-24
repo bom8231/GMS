@@ -1,6 +1,8 @@
 package com.sl.yu.GMS.controller;
 
 import com.sl.yu.GMS.Service.BoardService;
+import com.sl.yu.GMS.Service.FileService;
+import com.sl.yu.GMS.model.attachtable;
 import com.sl.yu.GMS.model.maintable;
 import com.sl.yu.GMS.repository.BoardRepository;
 import jakarta.persistence.EntityManager;
@@ -14,10 +16,13 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,14 +33,31 @@ public class BoardController {
     @Autowired
     private BoardRepository boardRepository;
     private final BoardService boardService;
+    private final FileService fileService;
     @GetMapping("/registration")
     public String registration(Model model){
         model.addAttribute("board",new maintable());
         return "board/registration";
     }
     @PostMapping("/registration")
-    public String registrationSubmit(@ModelAttribute maintable board){
-    boardRepository.save(board);
+    public String registrationSubmit(@ModelAttribute maintable board, @ModelAttribute attachtable attach,
+                                     @RequestParam(required = false) MultipartFile file,
+                                     @RequestParam(required = false) List<MultipartFile> files) throws IOException{
+
+        if (file != null) {
+            fileService.saveFile(file, attach);
+        }
+
+        if (files != null) {
+            for (MultipartFile multipartFile : files) {
+                if (!multipartFile.isEmpty()) {
+                    fileService.saveFile(multipartFile, attach);
+                }
+            }
+        }
+
+
+        boardRepository.save(board);
     return "redirect:/";
     }
 
