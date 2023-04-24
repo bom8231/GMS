@@ -41,7 +41,7 @@
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary" type="submit">조회</button>
                                 </div>
-                        </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -68,8 +68,8 @@
                         <td data-label="등록번호" th:text="${#temporals.format(#temporals.createDate(list.REQ_DATE, 'yyyy-MM-dd HH:mm:ss.S'), 'yyyyMMdd')+'-'+list.id}">등록번호</td>
                         <!--                        <td data-label="등록부서" th:text="${list.DEPT_ID}">등록부서</td>-->
                         <!--                        <td data-label="등록자"  th:text="${list.USER_ID}">등록자</td>-->
-                        <td data-label="등록부서" th:text="${list.DEPT_ID}">등록부서</td>
-                        <td data-label="등록자"  th:text="${list.userName}">등록자</td>
+                        <td data-label="등록부서">정보보안팀</td>
+                        <td data-label="등록자">김보민</td>
                         <td data-label="제목"   th:text="${list.TITLE}">이건 제목이 아주 길지롱?</td>
                         <td data-label="내방자명" th:text="${list.VISITOR != null && !list.VISITOR.isEmpty() && list.VISITOR.contains(',') ? (list.VISITOR.endsWith(',') ? list.VISITOR.substring(0, list.VISITOR.length() - 1) : list.VISITOR.replace(',', ', ')) : (list.VISITOR != null ? list.VISITOR : '')}">
                             내방자명
@@ -101,17 +101,49 @@
                 </table>
             </div>
             <nav aria-label="Page navigation example" style="margin-top: 10px;">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item" th:if="${resultMap.totalPage} > 0" th:each="index : ${#numbers.sequence(1, resultMap.totalPage)}"
-                        th:with="paging=${resultMap.paging}">
+                <ul class="pagination  justify-content-center" th:with="start=${T(java.lang.Math).floor(resultMap.list.number/10)*10 + 1},
+                    last=(${start + 9 < resultMap.list.getTotalPages ? start + 9 : resultMap.list.getTotalPages})">
+                    <li>
+                        <a class="page-link" th:href="@{/checkOut(page=0, searchKeyword = ${param.searchKeyword},type = ${param.type})}" aria-label="First">
+                            <span aria-hidden="true">처음</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="page-link" th:href="@{/checkOut(page=${start-1}, searchKeyword = ${param.searchKeyword},type = ${param.type})}" aria-label="First">
+                            <span aria-hidden="true"><<</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:classappend="${!resultMap.list.hasPrevious} ? 'disabled'">
                         <a class="page-link"
-                           th:href="@{/checkOut(page=${index-1}, searchKeyword = ${param.searchKeyword}, type = ${param.type})}"
-                           th:classappend="${index-1 == currentPage} ? 'active' : ''">
-                            <span th:text="${index}"></span>
+                           th:href="@{/checkOut(page=${resultMap.list.number-1}, searchKeyword = ${param.searchKeyword},type = ${param.type})}">
+                            <span>이전</span>
+                        </a>
+                    </li>
+                    <li th:each="page: ${#numbers.sequence(start, last)}">
+                        <a class="page-link" th:if="${page != resultMap.list.number + 1}"
+                           th:text="${page}" th:href="@{/checkOut(page=${page-1}, searchKeyword = ${param.searchKeyword},type = ${param.type})}"></a>
+                        <a class="page-link" th:if="${page == resultMap.list.number + 1}" th:text="${page}" style="background-color : #539acc"></a>
+                    </li>
+                    <li class="page-item"  th:classappend="${!resultMap.list.hasNext} ? 'disabled'">
+                        <a class="page-link"
+                           th:href="@{/checkOut(page=${resultMap.list.number+1}, searchKeyword = ${param.searchKeyword},type = ${param.type})}">
+                            <span aria-hidden="true">다음</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="page-link" th:href="@{/checkOut(page=${last-1}, searchKeyword = ${param.searchKeyword},type = ${param.type})}" aria-label="First">
+                            <span aria-hidden="true">>></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="page-link" th:href="@{/checkOut(page=${resultMap.list.getTotalPages-1}, searchKeyword = ${param.searchKeyword},type = ${param.type})}" aria-label="last">
+                            <span aria-hidden="true">끝</span>
                         </a>
                     </li>
                 </ul>
             </nav>
+
+
         </div>
     </div>
 </div>
@@ -120,4 +152,3 @@
 <script src="js/list.js"></script>
 </body>
 </html>
-

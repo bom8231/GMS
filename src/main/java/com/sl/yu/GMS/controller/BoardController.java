@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -33,7 +34,14 @@ public class BoardController {
     @Autowired
     private BoardRepository boardRepository;
     private final BoardService boardService;
+
+    @GetMapping("/main")
+    public String mainDirection(){
+        return "board/main";
+    }
+
     private final FileService fileService;
+
     @GetMapping("/registration")
     public String registration(Model model){
         model.addAttribute("board",new maintable());
@@ -64,9 +72,8 @@ public class BoardController {
     @Autowired
     private EntityManager entityManager;
     @RequestMapping("/list")// "/list"
-    public String list(Model model,
-
-     @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable pageable, String searchKeyword, String type, String[] state) {
+    public String list(Model model, @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable pageable,
+                       String searchKeyword, String type, String[] state, String startDate, String endDate) {
 
                       
         // 날짜 지난 것 미방문 상태로 바꾸기
@@ -80,10 +87,10 @@ public class BoardController {
         }
 
         /*searchKeyword = 검색하는 단어*/
-        if(searchKeyword == null && type ==null && state ==null){
+        if(searchKeyword == null && type ==null && startDate == null){
             model.addAttribute("resultMap", boardService.boardList(pageable));
         }else{
-            model.addAttribute("resultMap", boardService.boardSearchList(searchKeyword, pageable, type, state));
+            model.addAttribute("resultMap", boardService.boardSearchList(searchKeyword, pageable, type, state, startDate, endDate));
         }
 
         return "board/list";
@@ -114,7 +121,7 @@ public class BoardController {
         if(searchKeyword == null && type ==null){
             model.addAttribute("resultMap", boardService.findStatusAll("1",pageable));
         }else{
-            model.addAttribute("resultMap", boardService.findStatusDateByKeyword("1",searchKeyword, type, pageable));
+            model.addAttribute("resultMap", boardService.findStatusAllByKeyword("1",searchKeyword, type, pageable));
         }
 
 

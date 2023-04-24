@@ -55,6 +55,7 @@ public class maintable {
     private String VISITOR;
     private String VISITOR_EMAIL;
     private String VISITOR_PHONE;
+    
     @Column(name = "ORIGIN_NAME")
     private String originName;
 
@@ -63,6 +64,4 @@ public class maintable {
 
     @Column(name = "SAVED_PATH")
     private String savedPath;
-
-
 }
