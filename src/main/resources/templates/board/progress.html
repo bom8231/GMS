@@ -96,7 +96,7 @@
                     </thead>
                     <tbody>
 
-                    <tr  th:each="list,index: ${resultMap.list}" th:with="paging=${resultMap.paging}" th:data-href="@{/list/detail(id=${list.id})}" >
+                    <tr  th:each="list,index: ${resultMap.list}" th:with="paging=${resultMap.paging}" th:data-href="@{/progress/detail(id=${list.id})}" >
                         <td data-label="등록번호"
                             th:text="${#temporals.format(#temporals.createDate(list.REQ_DATE, 'yyyy-MM-dd HH:mm:ss.S'),
                                  'yyyyMMdd')+'-'+list.id}">
@@ -124,43 +124,43 @@
                     </tbody>
                 </table>
             </div>
-            <nav aria-label="Page navigation example" style="margin-top: 10px;">
+            <nav aria-label="Page navigation example" class="nav__bar" style="margin-top: 10px;">
                 <ul class="pagination  justify-content-center" th:with="start=${T(java.lang.Math).floor(resultMap.list.number/10)*10 + 1},
                     last=(${start + 9 < resultMap.list.getTotalPages ? start + 9 : resultMap.list.getTotalPages})">
                     <li>
-                        <a class="page-link" th:href="@{/list(page=0, searchKeyword = ${param.searchKeyword},type = ${param.type},state = ${param.state},startDate = ${param.startDate},endDate = ${param.endDate})}" aria-label="First">
+                        <a class="page-link" th:href="@{/progress(page=0, searchKeyword = ${param.searchKeyword},type = ${param.type},state = ${param.state},startDate = ${param.startDate},endDate = ${param.endDate})}" aria-label="First">
                             <span aria-hidden="true">처음</span>
                         </a>
                     </li>
                     <li>
-                        <a class="page-link" th:href="@{/list(page=${start-1}, searchKeyword = ${param.searchKeyword},type = ${param.type},state = ${param.state},startDate = ${param.startDate},endDate = ${param.endDate})}" aria-label="First">
+                        <a class="page-link" th:href="@{/progress(page=${start-1}, searchKeyword = ${param.searchKeyword},type = ${param.type},state = ${param.state},startDate = ${param.startDate},endDate = ${param.endDate})}" aria-label="First">
                             <span aria-hidden="true"><<</span>
                         </a>
                     </li>
                     <li class="page-item" th:classappend="${!resultMap.list.hasPrevious} ? 'disabled'">
                         <a class="page-link"
-                           th:href="@{/list(page=${resultMap.list.number-1}, searchKeyword = ${param.searchKeyword},type = ${param.type},state = ${param.state},startDate = ${param.startDate},endDate = ${param.endDate})}">
+                           th:href="@{/progress(page=${resultMap.list.number-1}, searchKeyword = ${param.searchKeyword},type = ${param.type},state = ${param.state},startDate = ${param.startDate},endDate = ${param.endDate})}">
                             <span>이전</span>
                         </a>
                     </li>
                     <li th:each="page: ${#numbers.sequence(start, last)}">
                         <a class="page-link" th:if="${page != resultMap.list.number + 1}"
-                           th:text="${page}" th:href="@{/list(page=${page-1}, searchKeyword = ${param.searchKeyword},type = ${param.type},state = ${param.state},startDate = ${param.startDate},endDate = ${param.endDate})}"></a>
+                           th:text="${page}" th:href="@{/progress(page=${page-1}, searchKeyword = ${param.searchKeyword},type = ${param.type},state = ${param.state},startDate = ${param.startDate},endDate = ${param.endDate})}"></a>
                         <a class="page-link" th:if="${page == resultMap.list.number + 1}" th:text="${page}" style="background-color : #539acc; color:white;"></a>
                     </li>
                     <li class="page-item"  th:classappend="${!resultMap.list.hasNext} ? 'disabled'">
                         <a class="page-link"
-                           th:href="@{/list(page=${resultMap.list.number+1}, searchKeyword = ${param.searchKeyword},type = ${param.type},state = ${param.state},startDate = ${param.startDate},endDate = ${param.endDate})}">
+                           th:href="@{/progress(page=${resultMap.list.number+1}, searchKeyword = ${param.searchKeyword},type = ${param.type},state = ${param.state},startDate = ${param.startDate},endDate = ${param.endDate})}">
                             <span aria-hidden="true">다음</span>
                         </a>
                     </li>
                     <li>
-                        <a class="page-link" th:href="@{/list(page=${last-1}, searchKeyword = ${param.searchKeyword},type = ${param.type},state = ${param.state},startDate = ${param.startDate},endDate = ${param.endDate})}" aria-label="First">
+                        <a class="page-link" th:href="@{/progress(page=${last-1}, searchKeyword = ${param.searchKeyword},type = ${param.type},state = ${param.state},startDate = ${param.startDate},endDate = ${param.endDate})}" aria-label="First">
                             <span aria-hidden="true">>></span>
                         </a>
                     </li>
                     <li>
-                        <a class="page-link" th:href="@{/list(page=${resultMap.list.getTotalPages-1}, searchKeyword = ${param.searchKeyword},type = ${param.type},startDate = ${param.state},start = ${param.startDate},endDate = ${param.endDate})}" aria-label="last">
+                        <a class="page-link" th:href="@{/progress(page=${resultMap.list.getTotalPages-1}, searchKeyword = ${param.searchKeyword},type = ${param.type},startDate = ${param.state},start = ${param.startDate},endDate = ${param.endDate})}" aria-label="last">
                             <span aria-hidden="true">끝</span>
                         </a>
                     </li>

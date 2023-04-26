@@ -10,13 +10,19 @@ color: white;
  padding:8px; 10px;
  font-family: Arial, sans-serif;
 }
+
+.nav__bar {
+font-size : 1em;
+margin-top: 10px;
+white-space:nowrap;
+}
+
 /* table 관련*/
 
 .table {
   width: 100%;
   border-collapse: collapse;
 }
-
 
 .table th {
   background-color: #539acc;
@@ -41,15 +47,6 @@ color: white;
   cursor: pointer;
 }
 
-input[type='date']::before {
-  content: attr(data-placeholder);
-  width: 100%;
-}
-
-input[type='date']:focus::before,
-input[type='date']:valid::before {
-  display: none;
-}
 .btn-outline{
    padding: 5px;
    width: 150px;
@@ -139,10 +136,12 @@ input[type='date']:valid::before {
     text-align: left;
 }
 
-#startDate{
-width: 100px;
-
+.nav__bar {
+font-size : 0.65em;
+margin-top: 10px;
+white-space:nowrap;
 }
+
  #sticker{
  text-align: left;
  }
@@ -152,5 +151,4 @@ width: 100px;
  }
 
 }
-
 

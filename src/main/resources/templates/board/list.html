@@ -127,7 +127,7 @@
                     </tbody>
                 </table>
             </div>
-            <nav aria-label="Page navigation example" style="margin-top: 10px;">
+            <nav class="nav__bar" aria-label="Page navigation example">
                 <ul class="pagination  justify-content-center" th:with="start=${T(java.lang.Math).floor(resultMap.list.number/10)*10 + 1},
                     last=(${start + 9 < resultMap.list.getTotalPages ? start + 9 : resultMap.list.getTotalPages})">
                     <li>
@@ -149,7 +149,7 @@
                     <li th:each="page: ${#numbers.sequence(start, last)}">
                         <a class="page-link" th:if="${page != resultMap.list.number + 1}"
                            th:text="${page}" th:href="@{/list(page=${page-1}, searchKeyword = ${param.searchKeyword},type = ${param.type},state = ${param.state},startDate = ${param.startDate},endDate = ${param.endDate})}"></a>
-                        <a class="page-link" th:if="${page == resultMap.list.number + 1}" th:text="${page}" style="background-color : #539acc; color:white;"></a>
+                        <a class="page-link" th:if="${page == resultMap.list.number + 1}" th:text="${page}" style="background-color : #539acc color:white;"></a>
                     </li>
                     <li class="page-item"  th:classappend="${!resultMap.list.hasNext} ? 'disabled'">
                         <a class="page-link"
