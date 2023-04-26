@@ -122,7 +122,9 @@ public class BoardController {
         }
 
         boardRepository.save(board);
+
         return "redirect:/checkIn";
+
     }
 
     //글삭제
