@@ -41,6 +41,15 @@ color: white;
   cursor: pointer;
 }
 
+input[type='date']::before {
+  content: attr(data-placeholder);
+  width: 100%;
+}
+
+input[type='date']:focus::before,
+input[type='date']:valid::before {
+  display: none;
+}
 .btn-outline{
    padding: 5px;
    width: 150px;
@@ -130,7 +139,10 @@ color: white;
     text-align: left;
 }
 
+#startDate{
+width: 100px;
 
+}
  #sticker{
  text-align: left;
  }

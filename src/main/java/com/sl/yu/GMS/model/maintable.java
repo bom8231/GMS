@@ -19,6 +19,9 @@ public class maintable {
     @Column(name = "VISIT_ID")
     private Long id;
 
+    @Column(name = "IS_ATTACH", insertable = false)
+    private String isAttach ="0";
+
     private String ATTACH;
     private String CAR_NUMBER;
     private String CARD_ID;
@@ -55,13 +58,5 @@ public class maintable {
     private String VISITOR;
     private String VISITOR_EMAIL;
     private String VISITOR_PHONE;
-    
-    @Column(name = "ORIGIN_NAME")
-    private String originName;
 
-    @Column(name = "SAVED_NAME")
-    private String savedName;
-
-    @Column(name = "SAVED_PATH")
-    private String savedPath;
 }

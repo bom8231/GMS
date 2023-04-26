@@ -16,7 +16,7 @@
     <div class="container">
 
         <div class="col-md-12 py-4">
-            <div class="text-center" onclick="location.href='/checkIn';">
+            <div class="text-center">
                 <span class="date" th:text="${#temporals.format(#temporals.createNow(), 'yyyy. MM. dd')}"></span>
 
                 <span  class="day" th:text="${#temporals.format(#temporals.createNow(), '(EEE)')}"></span>
@@ -33,16 +33,19 @@
                 <div style="float:left;">
                     <form th:action="@{/checkIn}" method="get">
                         <div class="input-group mb-3" >
-                            <select required class="form-select btn-outline-secondary" id="searchDrop" name="type" >
+                            <select required class="form-select btn-outline-secondary" id="searchDrop" name="type" th:value="${searchType}">
                                 <option value="" style="display: none;">검색 옵션 선택</option>
-                                <option value="visitor_name">내방자명</option>
-                                <option value="register_name">등록자명</option>
-                                <option value="register_company">내방자회사</option>
-                                <option value="title">제목</option>
+                                <option th:selected="${searchType}=='title'" value="title">제목</option>
+                                <option th:selected="${searchType}=='visitor_name'" value="visitor_name">내방자명</option>
+                                <option th:selected="${searchType}=='register_name'" value="register_name">등록자명</option>
+                                <option th:selected="${searchType}=='register_company'" value="register_company">내방자회사</option>
                             </select>
-                            <input required type="text" name="searchKeyword" class="form-control" placeholder="검색어" aria-label="Text input with dropdown button">
+                            <input required type="text" name="searchKeyword" class="form-control" placeholder="검색어" aria-label="Text input with dropdown button" th:value="${searchKeyword}">
                             <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="submit">조회</button>
+                                <button class="btn btn-outline-secondary" type="submit">검색</button>
+                                <button class="btn btn-outline-secondary" type="reset" th:onclick="'location.href=\'' + @{/checkIn} + '\''">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -134,7 +137,7 @@
                         <li th:each="page: ${#numbers.sequence(start, last)}">
                             <a class="page-link" th:if="${page != resultMap.list.number + 1}"
                                th:text="${page}" th:href="@{/checkIn(page=${page-1}, searchKeyword = ${param.searchKeyword},type = ${param.type})}"></a>
-                            <a class="page-link" th:if="${page == resultMap.list.number + 1}" th:text="${page}" style="background-color : #539acc"></a>
+                            <a class="page-link" th:if="${page == resultMap.list.number + 1}" th:text="${page}" style="background-color:#539acc; color:white;"></a>
                         </li>
                         <li class="page-item"  th:classappend="${!resultMap.list.hasNext} ? 'disabled'">
                             <a class="page-link"

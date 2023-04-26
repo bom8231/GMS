@@ -3,11 +3,12 @@
 <head th:replace="~{fragments/common :: head}"> </head>
 <head>
     <link th:href="@{/css/registration.css}" rel="stylesheet">
+    <link th:href="@{/css/edit.css}" rel="stylesheet">
     <script></script>
 </head>
 
 <body>
-<form action="#" th:action="@{/checkIn/edit}" th:object="${board}" method="post" onsubmit="return confirmEdit();">
+<form action="#" th:action="@{/checkIn/edit}" th:object="${board}" method="post" enctype="multipart/form-data" onsubmit="return confirmEdit();">
     <input type="hidden" th:field="*{id}">
     <div class="content">
         <!-- 페이지 내용 -->
@@ -163,9 +164,21 @@
                                 <tr>
                                     <th>파일 첨부</th>
                                     <td colspan="3">
-                                        <form method="POST" action="/upload" enctype="multipart/form-data">
-                                            <input type="file" name="file" />
-                                        </form>
+                                        <th:block th:if="${board.isAttach == '1'}">
+                                            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                                <div th:each="attach : ${attachments}" id="attachments" >
+                                                    <img th:src="|/images/${attach.id}|" alt="이미지" class="imgView"/>
+                                                    <button type="button" id="imgDeleteBtn" th:onclick="deleteImage([[ ${attach.id} ]])">×</button>
+                                                </div>
+                                            </div>
+                                        </th:block>
+
+                                        <div>
+                                            <input type="file" multiple="multiple" name="files" onchange="showFileList()"  accept="image/*">
+                                        </div>
+                                        <p id="total-size">(파일 용량 합계: 0.00 KB)</p>
+
+                                        <div id="file-list"></div>
                                     </td>
                                 </tr>
                                 </tbody>
