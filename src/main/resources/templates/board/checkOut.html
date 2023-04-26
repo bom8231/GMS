@@ -101,7 +101,7 @@
                     </tbody>
                 </table>
             </div>
-            <nav aria-label="Page navigation example" style="margin-top: 10px;">
+            <nav  class="nav__bar" aria-label="Page navigation example">
                 <ul class="pagination  justify-content-center" th:with="start=${T(java.lang.Math).floor(resultMap.list.number/10)*10 + 1},
                     last=(${start + 9 < resultMap.list.getTotalPages ? start + 9 : resultMap.list.getTotalPages})">
                     <li>
