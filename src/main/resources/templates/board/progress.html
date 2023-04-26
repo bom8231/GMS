@@ -3,7 +3,9 @@
 <head th:replace="~{fragments/common :: head}">
 </head>
 <head>
-<!--    <link rel="stylesheet" href="css/main.css" />-->
+    <link rel="stylesheet" href="css/list.css" />
+
+
 </head>
 
 <body>
@@ -13,16 +15,165 @@
 
 <div id="wrapper">
     <div class="container">
-        <div class="col-md-12">
-            <div class="py-5 text-center">
+
+        <div class="col-md-12 py-4">
+            <div class="text-center" onclick="location.href='/progress';">
                 <h2>방문 신청 내역 조회</h2>
             </div>
+            <div style="float:left">
+                <form th:action="@{/progress}" method="get" >
+
+                    <div style="float:left; margin-top:10px; margin-right:10px">
+                        방문 예정일 기간검색
+                    </div>
+                    <div style="float:left">
+                        <table>
+                            <tr >
+                                <td><input required name="startDate" type="date" class="form-control" placeholder="날짜 선택" aria-label="날짜 선택" aria-describedby="basic-addon2"  th:value="${startDate}"></td>
+                                <td>~</td>
+                                <td><input required name="endDate" type="date" class="form-control" placeholder="날짜 선택" aria-label="날짜 선택" aria-describedby="basic-addon2" th:value="${endDate}"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <table style="margin-top:5px; float:left">
+                            <tr>
+                                <td>상태선택</td>
+                                <td>
+                                    <div class="form-group" style="margin-top:12px; margin-left:10px">
+                                        <input class="position-checkbox"  name ="state"  type="checkbox" value="0" style="margin-right:5px; " th:checked="${state != null and #lists.contains(state, '0')}"/>방문전
+                                        <input class="position-checkbox"  name ="state" type="checkbox" value="1" style="margin-right:5px;" th:checked="${state != null and #lists.contains(state, '1')}"/>방문중
+                                        <input class="position-checkbox"  name ="state" type="checkbox" value="2" style="margin-right:5px;" th:checked="${state != null and #lists.contains(state, '2')}"/>방문완료
+                                        <input class="position-checkbox"  name ="state" type="checkbox" value="3" style="margin-right:5px;" th:checked="${state != null and #lists.contains(state, '3')}"/>미방문
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="margin-top:10px;">
+                        <div class="input-group mb-3" >
+                            <select class="form-select btn-outline-secondary" id="searchDrop" name="type" >
+                                <option value="all" selected style="display: none;">검색 옵션 선택</option>
+                                <option th:selected="${searchType}=='title'" value="title">제목</option>
+                                <option th:selected="${searchType}=='visitor_name'" value="visitor_name">내방자명</option>
+                                <option th:selected="${searchType}=='register_name'" value="register_name">등록자명</option>
+                                <option th:selected="${searchType}=='register_company'" value="register_company">내방자회사</option>
+                            </select>
+                            <input type="text" name="searchKeyword" class="form-control" placeholder="검색어" aria-label="Text input with dropdown button" th:value="${searchKeyword}">
 
 
+                        </div>
+                        <div class="input-group-append" style="margin-bottom:10px;">
+                            <button class="btn btn-outline-secondary" type="submit" style="margin-right:5px;">조회</button>
+                            <button class="btn btn-outline-secondary" type="reset" th:onclick="'location.href=\'' + @{/progress} + '\''">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                        <span class="badge bg-secondary">전체 등록 <span th:text="${resultMap.list.totalElements}">50</span>건</span>
+                        <span class="badge bg-secondary" style="margin-bottom:5px;">현재 <span th:text="${#lists.size(resultMap.list.content)}">15</span>개</span>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 목록-->
+            <div class="table-responsive">
+
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th width="13%">등록번호</th>
+                        <th width="15%">제목</th>
+                        <th width="15%">내방자명</th>
+                        <th width="10%">내방자회사</th>
+                        <th width="12%">등록일시</th>
+                        <th width="12%">방문예정일</th>
+                        <th width="12%">상태</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr  th:each="list,index: ${resultMap.list}" th:with="paging=${resultMap.paging}" th:data-href="@{/list/detail(id=${list.id})}" >
+                        <td data-label="등록번호"
+                            th:text="${#temporals.format(#temporals.createDate(list.REQ_DATE, 'yyyy-MM-dd HH:mm:ss.S'),
+                                 'yyyyMMdd')+'-'+list.id}">
+                            등록번호
+                        </td>
+                        <td data-label="제목"   th:text="${list.TITLE}">이건 제목이 아주 길지롱?</td>
+                        <td data-label="내방자명" th:text="${list.VISITOR != null && !list.VISITOR.isEmpty() && list.VISITOR.contains(',') ? (list.VISITOR.endsWith(',') ? list.VISITOR.substring(0, list.VISITOR.length() - 1) : list.VISITOR.replace(',', ', ')) : (list.VISITOR != null ? list.VISITOR : '')}">
+                            내방자명
+                        </td>
+                        <td data-label="내방자회사">
+                            <span th:utext="${list.visitAssign != null && !list.visitAssign.isEmpty() && list.visitAssign.contains(',') ? (list.visitAssign.endsWith(',') ? list.visitAssign.substring(0, list.visitAssign.length() - 1) : list.visitAssign.replace(',', ', ')) : (list.visitAssign != null ? list.visitAssign : '')}">내방자회사</span>
+                        </td>
+                        <td data-label="등록일시" th:text="${#temporals.format(#temporals.createDateTime(list.REQ_DATE, 'yyyy-MM-dd HH:mm:ss.S'), 'yyyy-MM-dd a hh:mm')}">
+                            등록일시
+                        </td>
+                        <td data-label="방문예정일" th:text="${#temporals.createDate(list.deDate, 'yyyy-MM-dd')}" >
+                            방문예정일
+                        </td>
+                        <td data-label="상태" class= "state" th:text="${list.stateID == '0' ? '방문전' :
+                                 (list.stateID == '1' ? '방문중' :
+                                  (list.stateID == '2' ? '방문완료' : '미방문'))}">
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav aria-label="Page navigation example" style="margin-top: 10px;">
+                <ul class="pagination  justify-content-center" th:with="start=${T(java.lang.Math).floor(resultMap.list.number/10)*10 + 1},
+                    last=(${start + 9 < resultMap.list.getTotalPages ? start + 9 : resultMap.list.getTotalPages})">
+                    <li>
+                        <a class="page-link" th:href="@{/list(page=0, searchKeyword = ${param.searchKeyword},type = ${param.type},state = ${param.state},startDate = ${param.startDate},endDate = ${param.endDate})}" aria-label="First">
+                            <span aria-hidden="true">처음</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="page-link" th:href="@{/list(page=${start-1}, searchKeyword = ${param.searchKeyword},type = ${param.type},state = ${param.state},startDate = ${param.startDate},endDate = ${param.endDate})}" aria-label="First">
+                            <span aria-hidden="true"><<</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:classappend="${!resultMap.list.hasPrevious} ? 'disabled'">
+                        <a class="page-link"
+                           th:href="@{/list(page=${resultMap.list.number-1}, searchKeyword = ${param.searchKeyword},type = ${param.type},state = ${param.state},startDate = ${param.startDate},endDate = ${param.endDate})}">
+                            <span>이전</span>
+                        </a>
+                    </li>
+                    <li th:each="page: ${#numbers.sequence(start, last)}">
+                        <a class="page-link" th:if="${page != resultMap.list.number + 1}"
+                           th:text="${page}" th:href="@{/list(page=${page-1}, searchKeyword = ${param.searchKeyword},type = ${param.type},state = ${param.state},startDate = ${param.startDate},endDate = ${param.endDate})}"></a>
+                        <a class="page-link" th:if="${page == resultMap.list.number + 1}" th:text="${page}" style="background-color : #539acc; color:white;"></a>
+                    </li>
+                    <li class="page-item"  th:classappend="${!resultMap.list.hasNext} ? 'disabled'">
+                        <a class="page-link"
+                           th:href="@{/list(page=${resultMap.list.number+1}, searchKeyword = ${param.searchKeyword},type = ${param.type},state = ${param.state},startDate = ${param.startDate},endDate = ${param.endDate})}">
+                            <span aria-hidden="true">다음</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="page-link" th:href="@{/list(page=${last-1}, searchKeyword = ${param.searchKeyword},type = ${param.type},state = ${param.state},startDate = ${param.startDate},endDate = ${param.endDate})}" aria-label="First">
+                            <span aria-hidden="true">>></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="page-link" th:href="@{/list(page=${resultMap.list.getTotalPages-1}, searchKeyword = ${param.searchKeyword},type = ${param.type},startDate = ${param.state},start = ${param.startDate},endDate = ${param.endDate})}" aria-label="last">
+                            <span aria-hidden="true">끝</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+
+        </div>
     </div>
-</div>
+
 </div>
 
+<script src="js/list.js"></script>
 
 </body>
 </html>

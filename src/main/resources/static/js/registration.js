@@ -146,3 +146,89 @@ function addTable() {
   function confirmSubmit() {
    return confirm("등록하시겠습니까?");
   }
+
+var totalSize = 0; // 전역 변수로 선언
+
+
+function updateTotalSize() {
+  var sizeUnit = "KB";
+  var totalSizeKB = Math.ceil(totalSize/1024);
+  if (totalSizeKB > 1024) {
+    sizeUnit = "MB";
+    totalSize = Math.ceil(totalSizeKB/1024);
+  } else {
+    totalSize = totalSizeKB;
+  }
+  var currentTotalSize = Array.from(document.querySelector('input[type=file]').files)
+    .reduce(function (accumulator, currentValue) {
+      return accumulator + currentValue.size;
+    }, 0);
+  var currentTotalSizeKB = Math.ceil(currentTotalSize/1024);
+  var currentSizeUnit = "KB";
+  if (currentTotalSizeKB > 1024) {
+    currentSizeUnit = "MB";
+    currentTotalSize = Math.ceil(currentTotalSizeKB/1024);
+  } else {
+    currentTotalSize = currentTotalSizeKB;
+  }
+  currentTotalSize = parseFloat(currentTotalSize).toFixed(2); // 소수점 2자리로 보이게 함
+  document.getElementById('total-size').textContent = "(파일 용량 합계: " + currentTotalSize + " " + currentSizeUnit + ")";
+}
+
+
+function removeFile(button) {
+  var listItem = button.parentNode;
+  var fileName = listItem.innerText.split(' ')[0];
+  var fileList = document.querySelector('input[type=file]').files;
+
+  var newFileList = Array.from(fileList);
+  for (var i = 0; i < newFileList.length; i++) {
+    if (newFileList[i].name === fileName) {
+      totalSize -= newFileList[i].size; // 삭제된 파일의 용량 빼주기
+      newFileList.splice(i, 1);
+      break;
+    }
+  }
+
+  var newFileListObj = new ClipboardEvent('').clipboardData || new DataTransfer();
+  for (var i = 0; i < newFileList.length; i++) {
+    newFileListObj.items.add(newFileList[i]);
+  }
+
+  document.querySelector('input[type=file]').files = newFileListObj.files;
+  listItem.parentNode.removeChild(listItem);
+
+  updateTotalSize(); // 총 용량 업데이트
+}
+
+function showFileList() {
+  var fileList = document.querySelector('input[type=file]').files;
+  var listContainer = document.getElementById('file-list');
+  listContainer.innerHTML = '';
+  totalSize = 0; // totalSize 초기화
+  for (var i = 0; i < fileList.length; i++) {
+    var fileName = fileList[i].name;
+    var fileSize = fileList[i].size;
+    totalSize += fileSize;
+    var sizeKB = Math.ceil(fileSize/1024);
+    var listItem = document.createElement('div');
+    listItem.style.marginBottom = "5px";
+    listItem.innerHTML = fileName + " (" + sizeKB + " KB) " + " <button type='button' onclick='removeFile(this)'>삭제</button>";
+    listContainer.appendChild(listItem);
+  }
+  updateTotalSize(); // 총 용량 업데이트
+}
+
+
+function removeAllFiles() {
+  var listContainer = document.getElementById('file-list');
+  listContainer.innerHTML = '';
+  var inputFile = document.querySelector('input[type=file]');
+  inputFile.value = null;
+  totalSize = 0; // totalSize 초기화
+  document.getElementById('total-size').textContent = "(파일 용량 합계: " + "0.00 KB)";
+}
+
+
+// 파일 선택 시 파일 리스트 표시
+document.querySelector('input[type=file]').addEventListener('change', showFileList);

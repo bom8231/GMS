@@ -1,6 +1,8 @@
 package com.sl.yu.GMS.Service;
 
 import com.sl.yu.GMS.model.attachtable;
+import com.sl.yu.GMS.model.maintable;
+import com.sl.yu.GMS.repository.BoardRepository;
 import com.sl.yu.GMS.repository.FileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,11 +20,12 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class FileService {
     private final FileRepository fileRepository;
+    private final BoardRepository boardRepository;
 
     @Value("${file.dir}")
     private String fileDir;
 
-    public Long saveFile(MultipartFile files,@ModelAttribute attachtable attach) throws IOException {
+    public Long saveFile(MultipartFile files,@ModelAttribute attachtable attach, Long visitId) throws IOException {
         if (files.isEmpty()) {
             return null;
         }
@@ -44,10 +47,15 @@ public class FileService {
         // 파일을 불러올 때 사용할 파일 경로
         String savedPath = fileDir + savedName;
 
-        //정보들 저장
+        // attachtable 객체 생성
+        attach = new attachtable();
         attach.setOriginName(originName);
         attach.setSavedName(savedName);
         attach.setSavedPath(savedPath);
+
+        // maintable 필드에 maintable 엔티티의 인스턴스를 할당
+        maintable maintable = boardRepository.findById(visitId).orElse(null);
+        attach.setMaintable(maintable);
 
         // 실제로 로컬에 uuid를 파일명으로 저장
         files.transferTo(new File(savedPath));

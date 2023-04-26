@@ -235,19 +235,28 @@
                 <div class="card-body" style="padding: 5px 20px;">
                     <table class="table  table-borderless" style="margin-top: 10px">
                         <tr>
-                            <th>내방회사</th><td>SL(주)-진량공장</td>
+                            <th>내방회사</th>
+                            <td>
+                         <span th:text="${board.PLANT == '0' ? 'SL(주)-진량공장' :
+                                        board.PLANT == '2' ? 'SL(주)-대구공장' :
+                                        board.PLANT == '3' ? 'SL(주)-성산공장' :
+                                        board.PLANT == '4' ? 'SL(주)-천안공장' :
+                                        board.PLANT == '8' ? 'SL(주)-안산공장' :
+                                        board.PLANT == '10' ? 'SL 전자공장(성서)' : ''}">
+  </span>
+                            </td>
                         </tr>
                         <tr>
-                            <th>성명</th><td>김보민</td>
+                            <th>성명</th><td th:text="${board.userName}">김보민</td>
                         </tr>
                         <tr>
-                            <th>부서</th><td>(진량 전자공장)품질팀</td>
+                            <th>부서</th><td th:text="${board.DEPT_NAME}">(진량 전자공장)품질팀</td>
                         </tr>
                         <tr>
-                            <th>이메일</th><td>choijinwook@slworld.com</td>
+                            <th>이메일</th><td th:text="${board.EMAIL}">choijinwook@slworld.com</td>
                         </tr>
                         <tr>
-                            <th>연락처</th><td>010-1234-5678</td>
+                            <th>연락처</th><td th:text="${board.TEL}">010-1234-5678</td>
                         </tr>
                     </table>
                 </div>
@@ -260,7 +269,14 @@
                 </div>
             <div class="inline-h card-name">방문 정보</div>
            </div>
+            <!-- 그림파일 있는 경우-->
             <div class="card col-md-12 mb-3 mobile-hidden" style="color:black; padding: 0px 0px;">
+                <th:block th:if="${board.isAttach == '1'}">
+                    <div th:each="attach : ${attachments} ">
+                        <img th:src="|/images/${attach.id}|" alt="이미지"  class="card-img-top last-img" />
+                    </div>
+                </th:block>
+
                 <div class="card-body" style="padding: 5px 20px;">
                     <table class="table  table-borderless" style="margin-top: 10px">
                         <tr th:if="${not #strings.isEmpty(board.ATTACH)}">
@@ -280,11 +296,20 @@
                             <th>상세내역</th>
                             <td th:text="${board.CONTENT_VISIT}">회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.</td>
                         </tr>
+
                     </table>
                 </div>
             </div>
             <!-- 모바일 버전 방문 정보-->
             <div class="card col-sm-12 mb-3 desktop-hidden" style="color:black; padding: 0px 0px;">
+                <th:block th:if="${board.isAttach == '1'}">
+                    <!-- 그림파일 있는 경우-->
+                    <div class="card col-md-12 mb-3 desktop-hidden" style="color:black; padding: 0px 0px;">
+                            <div th:each="attach : ${attachments} ">
+                                <img th:src="|/images/${attach.id}|" alt="이미지"  class="card-img-top last-img" />
+                            </div>
+                    </div>
+                </th:block>
                 <div class="card-body" style="padding: 5px 20px;">
                     <table class="table  table-borderless" style="margin-top: 10px">
                         <!-- 방문 예정-->
@@ -412,7 +437,7 @@
     <form action="#" th:action="@{/checkIn/receipt/{boardId}(boardId=${board.id})}" th:object="${board}" method="post" onsubmit="return confirmReceipt();">
     <div class="footer">
         <button class="btn btn-action" type="submit">접수</button>
-        <button class="btn btn-action list" onclick="goList()">목록</button>
+        <button class="btn btn-action list" type="button" onclick="goList()">목록</button>
     </div>
     </form>
 </th:block>
@@ -421,14 +446,14 @@
     <form action="#" th:action="@{/checkOut/complete/{boardId}(boardId=${board.id})}" th:object="${board}" method="post" onsubmit="return confirmComplete();">
         <div class="footer">
             <button class="btn btn-action">완료</button>
-            <button class="btn btn-action list" onclick="goList()">목록</button>
+            <button class="btn btn-action list" type="button" onclick="goList()">목록</button>
         </div>
     </form>
 </th:block>
 <!-- 방문완료-->
 <th:block th:if="${board.stateID == '2' }">
     <div class="footer">
-        <button class="btn btn-action list" onclick="goList()">목록</button>
+        <button class="btn btn-action list" type="button" onclick="goList()">목록</button>
     </div>
 </th:block>
 <!-- 미방문-->
@@ -436,7 +461,7 @@
     <form action="#" th:action="@{/list/receipt/{boardId}(boardId=${board.id})}" th:object="${board}" method="post" onsubmit="return confirmReceipt();">
         <div class="footer">
             <button class="btn btn-action" type="submit">접수</button>
-            <button class="btn btn-action list" onclick="goList()">목록</button>
+            <button class="btn btn-action list" type="button" onclick="goList()">목록</button>
         </div>
     </form>
 </th:block>

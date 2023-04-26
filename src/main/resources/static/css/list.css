@@ -47,6 +47,15 @@ white-space:nowrap;
   cursor: pointer;
 }
 
+input[type='date']::before {
+  content: attr(data-placeholder);
+  width: 100%;
+}
+
+input[type='date']:focus::before,
+input[type='date']:valid::before {
+  display: none;
+}
 .btn-outline{
    padding: 5px;
    width: 150px;
@@ -135,6 +144,7 @@ white-space:nowrap;
     font-weight: bold;
     text-align: left;
 }
+
 
 .nav__bar {
 font-size : 0.65em;
