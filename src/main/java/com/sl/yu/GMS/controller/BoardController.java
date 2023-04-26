@@ -66,7 +66,7 @@ public class BoardController {
 
 
         boardRepository.save(board);
-    return "redirect:/";
+    return "redirect:/main";
     }
 
     @Autowired

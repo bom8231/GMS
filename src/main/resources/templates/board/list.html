@@ -20,45 +20,55 @@
             <div class="text-center" onclick="location.href='/list';">
                 <h2>전체 예약 리스트</h2>
             </div>
-            <form th:action="@{/list}" method="get" >
-                <table style="border-spacing: 10px; border-collapse: separate;">
-                    <tr >
+            <div style="float:left">
+                <form th:action="@{/list}" method="get" >
+
+                    <div style="float:left; margin-top:10px; margin-right:10px">
                         <td>방문 예정일 기간검색</td>
-                        <td><input required name="startDate" type="date" class="form-control" placeholder="날짜 선택" aria-label="날짜 선택" aria-describedby="basic-addon2"></td>
-                        <td><input required name="endDate" type="date" class="form-control" placeholder="날짜 선택" aria-label="날짜 선택" aria-describedby="basic-addon2"></td>
-                    </tr>
-                </table>
-                <table style="border-spacing: 10px; border-collapse: separate;">
-                    <tr>
-                        <td>상태선택</td>
-                        <td>
-                            <div class="form-group">
-                                <input class="position-checkbox" selected name ="state"  type="checkbox" value="0">방문전</input>
-                                <input class="position-checkbox"  name ="state" type="checkbox" value="1">방문중</input>
-                                <input class="position-checkbox"  name ="state" type="checkbox" value="2">방문완료</input>
+                    </div>
+                    <div style="float:left">
+                        <table>
+                            <tr >
+                                <td><input required name="startDate" type="date" class="form-control" placeholder="날짜 선택" aria-label="날짜 선택" aria-describedby="basic-addon2"></td>
+                                <td><input required name="endDate" type="date" class="form-control" placeholder="날짜 선택" aria-label="날짜 선택" aria-describedby="basic-addon2"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <table style="margin-top:10px; float:left">
+                            <tr>
+                                <td>상태선택</td>
+                                <td>
+                                    <div class="form-group" style="margin-top:20px;margin-left:10px">
+                                        <input class="position-checkbox" selected name ="state"  type="checkbox" value="0">방문전</input>
+                                        <input class="position-checkbox"  name ="state" type="checkbox" value="1">방문중</input>
+                                        <input class="position-checkbox"  name ="state" type="checkbox" value="2">방문완료</input>
 
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="margin-top:10px;">
+                        <div class="input-group mb-3" >
+                            <select class="form-select btn-outline-secondary" id="searchDrop" name="type" >
+                                <option value="all" selected style="display: none;">검색 옵션 선택</option>
+                                <option value="visitor_name">내방자명</option>
+                                <option value="register_name">등록자명</option>
+                                <option value="register_company">내방자회사</option>
+                                <option value="title">제목</option>
+                            </select>
+                            <input type="text" value="" name="searchKeyword" class="form-control" placeholder="검색어" aria-label="Text input with dropdown button">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit">조회</button>
                             </div>
-
-                        </td>
-
-                    </tr>
-                </table>
-                <div style="float: left; ">
-                    <div class="input-group mb-3" >
-                        <select class="form-select btn-outline-secondary" id="searchDrop" name="type" >
-                            <option value="all" selected style="display: none;">검색 옵션 선택</option>
-                            <option value="visitor_name">내방자명</option>
-                            <option value="register_name">등록자명</option>
-                            <option value="register_company">내방자회사</option>
-                            <option value="title">제목</option>
-                        </select>
-                        <input type="text" value="" name="searchKeyword" class="form-control" placeholder="검색어" aria-label="Text input with dropdown button">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="submit">조회</button>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
+
             <!-- 목록-->
             <div class="table-responsive">
                 <span class="badge bg-secondary">전체 등록 <span th:text="${resultMap.list.totalElements}">50</span>건</span>
@@ -110,7 +120,7 @@
                     </tbody>
                 </table>
             </div>
-            <nav aria-label="Page navigation example" style="margin-top: 10px;">
+            <nav class="nav__bar" aria-label="Page navigation example">
                 <ul class="pagination  justify-content-center" th:with="start=${T(java.lang.Math).floor(resultMap.list.number/10)*10 + 1},
                     last=(${start + 9 < resultMap.list.getTotalPages ? start + 9 : resultMap.list.getTotalPages})">
                     <li>

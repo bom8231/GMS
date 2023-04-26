@@ -13,6 +13,7 @@ public class attachtable {
     @Column(name = "FILE_ID")
     private Long id;
 
+    //N대1관계 단방향
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "VISIT_ID")
     private maintable maintable;
