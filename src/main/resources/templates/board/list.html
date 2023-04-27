@@ -23,35 +23,21 @@
             <div style="float:left">
                 <form th:action="@{/list}" method="get" >
 
-                    <div style="float:left; margin-top:10px; margin-right:10px">
-                        방문 예정일 기간검색
+                    <div class="dateInput">
+                        <div style="float:left; margin-top:10px; margin-bottom:10px; margin-right:10px">
+                            방문 예정일 기간검색
+                        </div>
+                        <div style="float:left">
+                            <table>
+                                <tr >
+                                    <td><input required name="startDate" type="date" class="form-control" placeholder="날짜 선택" aria-label="날짜 선택" aria-describedby="basic-addon2"  th:value="${startDate}"></td>
+                                    <td>~</td>
+                                    <td><input required name="endDate" type="date" class="form-control" placeholder="날짜 선택" aria-label="날짜 선택" aria-describedby="basic-addon2" th:value="${endDate}"></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                    <div style="float:left">
-                        <table>
-                            <tr >
-                                <td><input required name="startDate" type="date" class="form-control" placeholder="날짜 선택" aria-label="날짜 선택" aria-describedby="basic-addon2"  th:value="${startDate}"></td>
-                                <td>~</td>
-                                <td><input required name="endDate" type="date" class="form-control" placeholder="날짜 선택" aria-label="날짜 선택" aria-describedby="basic-addon2" th:value="${endDate}"></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div>
-                        <table style="margin-top:5px; float:left">
-                            <tr>
-                                <td>상태선택</td>
-                                <td>
-                                    <div class="form-group" style="margin-top:12px; margin-left:10px">
-                                        <input class="position-checkbox"  name ="state"  type="checkbox" value="0" style="margin-right:5px; " th:checked="${state != null and #lists.contains(state, '0')}"/>방문전
-                                        <input class="position-checkbox"  name ="state" type="checkbox" value="1" style="margin-right:5px;" th:checked="${state != null and #lists.contains(state, '1')}"/>방문중
-                                        <input class="position-checkbox"  name ="state" type="checkbox" value="2" style="margin-right:5px;" th:checked="${state != null and #lists.contains(state, '2')}"/>방문완료
-                                        <input class="position-checkbox"  name ="state" type="checkbox" value="3" style="margin-right:5px;" th:checked="${state != null and #lists.contains(state, '3')}"/>미방문
-                                    </div>
 
-                                </td>
-
-                            </tr>
-                        </table>
-                    </div>
                     <div style="margin-top:10px;">
                         <div class="input-group mb-3" >
                             <select class="form-select btn-outline-secondary" id="searchDrop" name="type" >

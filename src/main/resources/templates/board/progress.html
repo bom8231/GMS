@@ -23,7 +23,7 @@
             <div style="float:left">
                 <form th:action="@{/progress}" method="get" >
 
-                    <div style="float:left; margin-top:10px; margin-right:10px">
+                    <div style="float:left; margin-top:10px; margin-bottom:10px; margin-right:10px">
                         방문 예정일 기간검색
                     </div>
                     <div style="float:left">
@@ -35,24 +35,40 @@
                             </tr>
                         </table>
                     </div>
-                    <div>
-                        <table style="margin-top:5px; float:left">
-                            <tr>
-                                <td>상태선택</td>
-                                <td>
-                                    <div class="form-group" style="margin-top:12px; margin-left:10px">
-                                        <input class="position-checkbox"  name ="state"  type="checkbox" value="0" style="margin-right:5px; " th:checked="${state != null and #lists.contains(state, '0')}"/>방문전
-                                        <input class="position-checkbox"  name ="state" type="checkbox" value="1" style="margin-right:5px;" th:checked="${state != null and #lists.contains(state, '1')}"/>방문중
-                                        <input class="position-checkbox"  name ="state" type="checkbox" value="2" style="margin-right:5px;" th:checked="${state != null and #lists.contains(state, '2')}"/>방문완료
-                                        <input class="position-checkbox"  name ="state" type="checkbox" value="3" style="margin-right:5px;" th:checked="${state != null and #lists.contains(state, '3')}"/>미방문
+                    <!--                    <div>-->
+                    <!-- 상태선택 PC 버전 -->
+                    <!--                        <table style="margin-top:5px; float:left"  class="mobile-hidden">-->
+                    <!--                            <tr class="mobile-hidden ">-->
+                    <!--                                <td>상태선택</td>-->
+                    <!--                                <td>-->
+                    <!--                                    <div class="form-group" style="margin-top:12px; margin-left:10px">-->
+                    <!--                                        <input class="position-checkbox"  name ="state"  type="checkbox" value="0" style="margin-right:5px; " th:checked="${state != null and #lists.contains(state, '0')}"/>방문전-->
+                    <!--                                        <input class="position-checkbox"  name ="state" type="checkbox" value="1" style="margin-right:5px;" th:checked="${state != null and #lists.contains(state, '1')}"/>방문중-->
+                    <!--                                        <input class="position-checkbox"  name ="state" type="checkbox" value="2" style="margin-right:5px;" th:checked="${state != null and #lists.contains(state, '2')}"/>방문완료-->
+                    <!--                                        <input class="position-checkbox"  name ="state" type="checkbox" value="3" style="margin-right:5px;" th:checked="${state != null and #lists.contains(state, '3')}"/>미방문-->
+                    <!--                                    </div>-->
 
-                                    </div>
+                    <!--                                </td>-->
+                    <!--                            </tr>-->
+                    <!--                        </table>-->
 
-                                </td>
-
-                            </tr>
-                        </table>
-                    </div>
+                    <!-- 상태 선택 모바일 버전 -->
+                    <!--                        <table style="margin-top:5px; float:left" class="desktop-hidden">-->
+                    <!--                            <tr>-->
+                    <!--                                <td>상태선택</td>-->
+                    <!--                            </tr>-->
+                    <!--                            <tr>-->
+                    <!--                                <td>-->
+                    <!--                                    <div class="form-group" style="margin-left:10px">-->
+                    <!--                                        <input class="position-checkbox"  name ="state"  type="checkbox" value="0" style="margin-right:5px; " th:checked="${state != null and #lists.contains(state, '0')}"/>방문전-->
+                    <!--                                        <input class="position-checkbox"  name ="state" type="checkbox" value="1" style="margin-right:5px;" th:checked="${state != null and #lists.contains(state, '1')}"/>방문중-->
+                    <!--                                        <input class="position-checkbox"  name ="state" type="checkbox" value="2" style="margin-right:5px;" th:checked="${state != null and #lists.contains(state, '2')}"/>방문완료-->
+                    <!--                                        <input class="position-checkbox"  name ="state" type="checkbox" value="3" style="margin-right:5px;" th:checked="${state != null and #lists.contains(state, '3')}"/>미방문-->
+                    <!--                                    </div>-->
+                    <!--                                </td>-->
+                    <!--                            </tr>-->
+                    <!--                        </table>-->
+                    <!--                    </div>-->
                     <div style="margin-top:10px;">
                         <div class="input-group mb-3" >
                             <select class="form-select btn-outline-secondary" id="searchDrop" name="type" >

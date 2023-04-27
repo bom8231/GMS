@@ -1,11 +1,15 @@
 .bg-secondary{
 color: white;
 }
-
+.text-center{
+height:5em;
+}
+.dateInput{
+height:3em;
+}
 .counts{
     margin-bottom: 5px;
 }
-
 .badge{
  padding:8px; 10px;
  font-family: Arial, sans-serif;
@@ -90,6 +94,12 @@ white-space:nowrap;
 
 @media (max-width: 768px) {
 
+.text-center{
+height:2em;
+}
+.dateInput{
+height:5em;
+}
 .table tbody tr:nth-child(even) {
   background-color: #539acc;
   color: white;
