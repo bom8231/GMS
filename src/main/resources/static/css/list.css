@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
 .bg-secondary{
 color: white;
 }
@@ -40,12 +41,11 @@ white-space:nowrap;
 
 .table td {
   padding: 12px 15px;
-  white-space:nowrap;
   border: none;
+  white-space:nowrap;
   text-align: left;
-  font-size: 16px;
+  font-size: 15px;
 }
-
 
 .table td:hover {
   cursor: pointer;
@@ -57,7 +57,7 @@ white-space:nowrap;
    border:1px solid #6c757d;
  }
 
- #sticker, #carNum{
+ #sticker, #carNum, #state{
     text-align: center;
  }
 
@@ -89,7 +89,11 @@ white-space:nowrap;
 .table-responsive::-webkit-scrollbar-track:hover {
   background-color: #ddd;
 }
-
+@media (min-width: 768px) {
+    .desktop-hidden {
+        display: none;
+    }
+}
 /*모바일 버전*/
 
 @media (max-width: 768px) {
@@ -159,6 +163,16 @@ white-space:nowrap;
  #carNum{
   text-align: left;
  }
+
+ #state{
+         text-align: left;
+        }
+
+
+
+.mobile-hidden {
+         display: none;
+     }
 
 }
 

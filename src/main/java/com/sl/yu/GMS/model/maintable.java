@@ -47,7 +47,9 @@ public class maintable {
     private String stateID ="0";
     private String TEL;
     private String TITLE;
-    private String USER_ID;
+
+    @Column(name = "USER_ID")
+    private String userID;
 
     @Column(name = "USER_NAME")
     private String userName;

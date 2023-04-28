@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/common :: head}">
+</head>
+<head>
+  <link th:href="@{/css/detail.css}" rel="stylesheet">
+
+
+</head>
+
+<body>
+<div class="content">
+  <!-- 네비게이션 바 -->
+  <nav class="navbar navbar-expand-lg" th:replace="~{fragments/common :: navBar}">
+  </nav>
+  <div id="wrapper">
+    <div class="container">
+      <th:block th:if="${board.stateID == '0'} and ${board.userID == user[0].userID} or ${board.stateID == '3'} and ${board.USER_ID == user[0].userID}">
+        <div class="btn-group">
+          <button class="edit" type="button" th:onclick="'location.href=\'' + @{/progress/edit(id=${board.id})} + '\''">수정</button>
+          <form action="#" th:action="@{/progress/delete/{boardId}(boardId=${board.id})}" th:object="${board}" method="post" onsubmit="return confirmDelete();">
+            <button class="remove" name="remove" type="submit">삭제</button>
+          </form>
+        </div>
+      </th:block>
+
+      <div class="row">
+
+        <div class="col-md-12">
+
+          <div class="text-center" style="margin-top: 24px;">
+            <h2 th:text="${board.TITLE}">리시브가드 장비 정기점검</h2>
+          </div>
+        </div>
+
+        <!-- PC버전 스탭-->
+        <!-- 방문전 및 미방문-->
+        <th:block th:if="${board.stateID == '0' or board.stateID == '3'}  ">
+          <table class="table progress-steps mobile-hidden py-4">
+            <thead>
+            <tr>
+              <td class="step-done">등록</td>
+              <td class="step-active">방문전</td>
+              <td class="step-unfinished">방문중</td>
+              <td class="step-unfinished">방문완료</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td class="step-info">
+                <span>등록일시</span><br>
+                <span th:text="${#temporals.format(#temporals.createDate(board.REQ_DATE,
+                                                            'yyyy-MM-dd HH:mm:ss.S'), 'yyyy-MM-dd')}">
+                                2023-03-11
+                            </span>
+                <br>
+                <span th:text="${#temporals.format(#temporals.createDateTime(board.REQ_DATE,
+                                                            'yyyy-MM-dd HH:mm:ss.S'), 'a hh:mm:ss')}">오전 11:10</span>
+              </td>
+              <td class="step-info active">
+                <span>방문예정일</span><br>
+                <span th:text="${#temporals.createDate(board.deDate,
+                                                            'yyyy-MM-dd')}">
+                                2023-03-11
+                            </span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </th:block>
+
+        <!-- 방문중-->
+        <th:block th:if="${board.stateID == '1' }">
+          <table class="table progress-steps mobile-hidden py-4">
+            <thead>
+            <tr>
+              <td class="step-done">등록</td>
+              <td class="step-done">방문전</td>
+              <td class="step-active">방문중</td>
+              <td class="step-unfinished">방문완료</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td class="step-info">
+                <span>등록일시</span><br>
+                <span th:text="${#temporals.format(#temporals.createDate(board.REQ_DATE,
+                                                            'yyyy-MM-dd HH:mm:ss.S'), 'yyyy-MM-dd')}">
+                                2023-03-11
+                            </span>
+                <br>
+                <span th:text="${#temporals.format(#temporals.createDateTime(board.REQ_DATE,
+                                                            'yyyy-MM-dd HH:mm:ss.S'), 'a hh:mm:ss')}">오전 11:10</span>
+              </td>
+              <td class="step-info">
+                <span>방문예정일</span><br>
+                <span th:text="${#temporals.createDate(board.deDate,
+                                                            'yyyy-MM-dd')}">
+                                2023-03-11
+                            </span>
+              </td>
+              <td class="step-info active">
+                <span>방문일시</span><br>
+                <span th:text="${#temporals.format(#temporals.createDate(board.replyDate,
+                                                            'yyyy-MM-dd HH:mm:ss.S'), 'yyyy-MM-dd')}">
+                                2023-03-11
+                            </span>
+                <br>
+                <span th:text="${#temporals.format(#temporals.createDateTime(board.replyDate,
+                                                            'yyyy-MM-dd HH:mm:ss.S'), 'a hh:mm:ss')}">오전 11:10</span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </th:block>
+
+        <!-- 방문완료-->
+        <th:block th:if="${board.stateID == '2' }">
+          <table class="table progress-steps mobile-hidden py-4">
+            <thead>
+            <tr>
+              <td class="step-done">등록</td>
+              <td class="step-done">방문전</td>
+              <td class="step-done">방문중</td>
+              <td class="step-active">방문완료</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td class="step-info">
+                <span>등록일시</span><br>
+                <span th:text="${#temporals.format(#temporals.createDate(board.REQ_DATE,
+                                                            'yyyy-MM-dd HH:mm:ss.S'), 'yyyy-MM-dd')}">
+                                2023-03-11
+                            </span>
+                <br>
+                <span th:text="${#temporals.format(#temporals.createDateTime(board.REQ_DATE,
+                                                            'yyyy-MM-dd HH:mm:ss.S'), 'a hh:mm:ss')}">오전 11:10</span>
+              </td>
+              <td class="step-info">
+                <span>방문예정일</span><br>
+                <span th:text="${#temporals.createDate(board.deDate,
+                                                            'yyyy-MM-dd')}">
+                                2023-03-11
+                            </span>
+              </td>
+              <td class="step-info">
+                <span>방문일시</span><br>
+                <span th:text="${#temporals.format(#temporals.createDate(board.replyDate,
+                                                            'yyyy-MM-dd HH:mm:ss.S'), 'yyyy-MM-dd')}">
+                                2023-03-11
+                            </span>
+                <br>
+                <span th:text="${#temporals.format(#temporals.createDateTime(board.replyDate,
+                                                            'yyyy-MM-dd HH:mm:ss.S'), 'a hh:mm:ss')}">오전 11:10</span>
+              </td>
+              <td class="step-info active">
+                <span>출문일시</span><br>
+                <span th:text="${#temporals.format(#temporals.createDate(board.END_DATE,
+                                                            'yyyy-MM-dd HH:mm:ss.S'), 'yyyy-MM-dd')}">
+                                2023-03-11
+                            </span>
+                <br>
+                <span th:text="${#temporals.format(#temporals.createDateTime(board.END_DATE,
+                                                            'yyyy-MM-dd HH:mm:ss.S'), 'a hh:mm:ss')}">오전 11:10</span>
+              </td>
+
+            </tr>
+            </tbody>
+          </table>
+        </th:block>
+
+
+
+        <!-- PC 버전 스탭 끝-->
+        <!-- 모바일 버전 스탭-->
+        <!-- 방문전 및 미방문-->
+        <th:block th:if="${board.stateID == '0' or board.stateID == '3'}">
+          <div class="desktop-hidden">
+            <table class="table progress-steps">
+              <thead>
+              <tr>
+                <td class="step-done">등록</td>
+                <td class="step-active">방문전</td>
+                <td class="step-unfinished">방문중</td>
+                <td class="step-unfinished">방문완료</td>
+              </tr>
+              </thead>
+            </table>
+          </div>
+        </th:block>
+
+        <!-- 방문중-->
+        <th:block th:if="${board.stateID == '1' }">
+          <div class="desktop-hidden">
+            <table class="table progress-steps">
+              <thead>
+              <tr>
+                <td class="step-done">등록</td>
+                <td class="step-done">방문전</td>
+                <td class="step-active">방문중</td>
+                <td class="step-unfinished">방문완료</td>
+              </tr>
+              </thead>
+            </table>
+          </div>
+        </th:block>
+        <!--방문 완료-->
+        <th:block th:if="${board.stateID == '2' }">
+          <div class="desktop-hidden">
+            <table class="table progress-steps">
+              <thead>
+              <tr>
+                <td class="step-done">등록</td>
+                <td class="step-done">방문전</td>
+                <td class="step-done">방문중</td>
+                <td class="step-active">방문완료</td>
+              </tr>
+              </thead>
+            </table>
+          </div>
+        </th:block>
+
+
+        <!-- 모바일 버전 상태바 끝-->
+        <!-- 등록자 정보-->
+        <div class="col-md-12" >
+          <div class="icon-header" >
+            <i class="fas fa-check"></i>
+          </div>
+          <div class="inline-h card-name">등록자 정보</div>
+        </div>
+        <div class="card col-md-12 mb-3" style="color:black; padding: 0px 0px; ">
+          <div class="card-body" style="padding: 5px 20px;">
+            <table class="table  table-borderless" style="margin-top: 10px">
+              <tr>
+                <th>내방회사</th>
+                <td>
+                         <span th:text="${board.PLANT == '0' ? 'SL(주)-진량공장' :
+                                        board.PLANT == '2' ? 'SL(주)-대구공장' :
+                                        board.PLANT == '3' ? 'SL(주)-성산공장' :
+                                        board.PLANT == '4' ? 'SL(주)-천안공장' :
+                                        board.PLANT == '8' ? 'SL(주)-안산공장' :
+                                        board.PLANT == '10' ? 'SL 전자공장(성서)' : ''}">
+  </span>
+                </td>
+              </tr>
+              <tr>
+                <th>성명</th><td th:text="${board.userName}">김보민</td>
+              </tr>
+              <tr>
+                <th>부서</th><td th:text="${board.DEPT_NAME}">(진량 전자공장)품질팀</td>
+              </tr>
+              <tr>
+                <th>이메일</th><td th:text="${board.EMAIL}">choijinwook@slworld.com</td>
+              </tr>
+              <tr>
+                <th>연락처</th><td th:text="${board.TEL}">010-1234-5678</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!-- 등록자 정보 끝-->
+        <!-- PC버전 방문 정보-->
+        <div class="col-md-12" >
+          <div class="icon-header" >
+            <i class="fas fa-check"></i>
+          </div>
+          <div class="inline-h card-name">방문 정보</div>
+        </div>
+        <!-- 그림파일 있는 경우-->
+        <div class="card col-md-12 mb-3 mobile-hidden" style="color:black; padding: 0px 0px;">
+          <th:block th:if="${board.isAttach == '1'}">
+            <div th:each="attach : ${attachments} ">
+              <img th:src="|/images/${attach.id}|" alt="이미지"  class="card-img-top last-img" />
+            </div>
+          </th:block>
+
+          <div class="card-body" style="padding: 5px 20px;">
+            <table class="table  table-borderless" style="margin-top: 10px">
+              <tr th:if="${not #strings.isEmpty(board.ATTACH)}">
+                <th>보안스티커</th><td th:text="${board.ATTACH}">부착</td>
+              </tr>
+
+              <tr th:if="${not #strings.isEmpty(board.CAR_NUMBER)}">
+                <th>차량번호</th>
+                <td th:text="${board.CAR_NUMBER}">4851</td>
+              </tr>
+
+              <tr>
+                <th>내방목적</th>
+                <td th:text="${board.VISIT_PURPOSE}">업무회의</td>
+              </tr>
+              <tr th:if="${not #strings.isEmpty(board.CONTENT_VISIT)}">
+                <th>상세내역</th>
+                <td th:text="${board.CONTENT_VISIT}">회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.</td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+        <!-- 모바일 버전 방문 정보-->
+        <div class="card col-sm-12 mb-3 desktop-hidden" style="color:black; padding: 0px 0px;">
+          <th:block th:if="${board.isAttach == '1'}">
+            <!-- 그림파일 있는 경우-->
+            <div class="card col-md-12 mb-3 desktop-hidden" style="color:black; padding: 0px 0px;">
+              <div th:each="attach : ${attachments} ">
+                <img th:src="|/images/${attach.id}|" alt="이미지"  class="card-img-top last-img" />
+              </div>
+            </div>
+          </th:block>
+          <div class="card-body" style="padding: 5px 20px;">
+            <table class="table  table-borderless" style="margin-top: 10px">
+              <!-- 방문 예정-->
+              <th:block th:if="${board.stateID=='0' or board.stateID=='3'}">
+                <tr>
+                  <th>등록일시</th><td th:text="${#temporals.format(#temporals.createDateTime(board.REQ_DATE,
+                                                            'yyyy-MM-dd HH:mm:ss.S'), 'yyyy-MM-dd a hh:mm:ss')}">2023-03-11 오전 11:10 </td>
+                </tr>
+                <tr>
+                  <th>방문예정일</th><td th:text="${#temporals.createDate(board.deDate,
+                                                            'yyyy-MM-dd')}">2023-03-11 </td>
+                </tr>
+              </th:block>
+              <!-- 방문 중-->
+              <th:block th:if="${board.stateID=='1'}">
+                <tr>
+                  <th>등록일시</th><td th:text="${#temporals.format(#temporals.createDateTime(board.REQ_DATE,
+                                                            'yyyy-MM-dd HH:mm:ss.S'), 'yyyy-MM-dd a hh:mm:ss')}">2023-03-11 오전 11:10 </td>
+                </tr>
+                <tr>
+                  <th>방문예정일</th><td th:text="${#temporals.createDate(board.deDate,
+                                                            'yyyy-MM-dd')}">2023-03-11 </td>
+                </tr>
+                <tr>
+                  <th>방문일시</th><td th:text="${#temporals.format(#temporals.createDateTime(board.replyDate,
+                                                            'yyyy-MM-dd HH:mm:ss.S'), 'yyyy-MM-dd a hh:mm:ss')}">2023-03-11 오전 11:10 </td>
+                </tr>
+              </th:block>
+              <!-- 방문 완료-->
+              <th:block th:if="${board.stateID=='2'}">
+                <tr>
+                  <th>등록일시</th><td th:text="${#temporals.format(#temporals.createDateTime(board.REQ_DATE,
+                                                            'yyyy-MM-dd HH:mm:ss.S'), 'yyyy-MM-dd a hh:mm:ss')}">2023-03-11 오전 11:10 </td>
+                </tr>
+                <tr>
+                  <th>방문예정일</th><td th:text="${#temporals.createDate(board.deDate,
+                                                            'yyyy-MM-dd')}">2023-03-11 </td>
+                </tr>
+                <tr>
+                  <th>방문일시</th><td th:text="${#temporals.format(#temporals.createDateTime(board.replyDate,
+                                                            'yyyy-MM-dd HH:mm:ss.S'), 'yyyy-MM-dd a hh:mm:ss')}">2023-03-11 오전 11:10 </td>
+                </tr>
+                <tr>
+                  <th>출문일시</th><td th:text="${#temporals.format(#temporals.createDateTime(board.END_DATE,
+                                                            'yyyy-MM-dd HH:mm:ss.S'), 'yyyy-MM-dd a hh:mm:ss')}">2023-03-11 오전 11:10 </td>
+                </tr>
+              </th:block>
+
+              <tr th:if="${not #strings.isEmpty(board.ATTACH)}">
+                <th>보안스티커</th><td th:text="${board.ATTACH}">부착</td>
+              </tr>
+
+              <tr th:if="${not #strings.isEmpty(board.CAR_NUMBER)}">
+                <th>차량번호</th>
+                <td th:text="${board.CAR_NUMBER}">4851</td>
+              </tr>
+
+              <tr>
+                <th>내방목적</th>
+                <td th:text="${board.VISIT_PURPOSE}">업무회의</td>
+              </tr>
+              <tr th:if="${not #strings.isEmpty(board.CONTENT_VISIT)}">
+                <th>상세내역</th>
+                <td th:text="${board.CONTENT_VISIT}">회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.>회의가 있습니다.</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!-- 모바일 버전 방문정보 끝-->
+
+        <!-- 방문객 정보-->
+        <div class="col-md-12" >
+          <div class="icon-header" >
+            <i class="fas fa-check"></i>
+          </div>
+          <div class="inline-h card-name">방문객 정보</div>
+        </div>
+        <table class="table col-md-12 visit-table">
+          <thead>
+          <tr>
+            <th style="width:10%;">순번</th>
+            <th style="width:15%;">이름</th>
+            <th style="width:20%;">소속</th>
+            <th style="width:15%;">직급</th>
+            <th style="width:20%;">전화번호</th>
+            <th style="width:20%;">이메일</th>
+          </tr>
+          </thead>
+          <tbody>
+          <!-- 반복문 사용 -->
+          <tr th:each="item : ${#strings.arraySplit(board.VISITOR, ',')}">
+            <td data-label="순번" th:text="${itemStat.count}">1</td>
+            <td data-label="이름" th:text="${item}">김보민</td>
+            <td data-label="소속" th:text="${#strings.arraySplit(board.visitAssign, ',').length > itemStat.index
+                                                        ? #strings.arraySplit(board.visitAssign, ',')[itemStat.index] : ' '}">
+              영남대학교
+            </td>
+            <td data-label="직급" th:text="${#strings.arraySplit(board.VISIT_CLASS, ',').length > itemStat.index
+                                                        ? #strings.arraySplit(board.VISIT_CLASS, ',')[itemStat.index] : ' '}">
+              학생
+            </td>
+            <td data-label="전화번호" th:text="${#strings.arraySplit(board.VISITOR_PHONE, ',').length > itemStat.index
+                                                        ? #strings.arraySplit(board.VISITOR_PHONE, ',')[itemStat.index] : ' '}">
+              010-1234-5678
+            </td>
+            <td data-label="이메일" th:text="${#strings.arraySplit(board.VISITOR_EMAIL, ',').length > itemStat.index
+                                                        ? #strings.arraySplit(board.VISITOR_EMAIL, ',')[itemStat.index] : ' '}">
+              test@naver.com
+            </td>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- 방문객 정보 끝-->
+
+    </div>
+  </div>
+</div>
+
+
+<!--하단 고정 바-->
+<!-- 방문전-->
+<th:block th:if="${board.stateID == '0' }">
+  <form action="#" th:action="@{/checkIn/receipt/{boardId}(boardId=${board.id})}" th:object="${board}" method="post" onsubmit="return confirmReceipt();">
+    <div class="footer">
+      <button class="btn btn-action" type="submit" th:if="${user[0].role=='경비'}">접수</button>
+      <button class="btn btn-action list" type="button" onclick="goList()">목록</button>
+    </div>
+  </form>
+</th:block>
+<!-- 방문중-->
+<th:block th:if="${board.stateID== '1' }">
+  <form action="#" th:action="@{/checkOut/complete/{boardId}(boardId=${board.id})}" th:object="${board}" method="post" onsubmit="return confirmComplete();">
+    <div class="footer">
+      <button class="btn btn-action" type="submit" th:if="${user[0].role=='경비'}">완료</button>
+      <button class="btn btn-action list" type="button" onclick="goList()">목록</button>
+    </div>
+  </form>
+</th:block>
+<!-- 방문완료-->
+<th:block th:if="${board.stateID == '2' }">
+  <div class="footer">
+    <button class="btn btn-action list" type="button" onclick="goList()">목록</button>
+  </div>
+</th:block>
+<!-- 미방문-->
+<th:block th:if="${board.stateID == '3' }">
+  <form action="#" th:action="@{/list/receipt/{boardId}(boardId=${board.id})}" th:object="${board}" method="post" onsubmit="return confirmReceipt();">
+    <div class="footer">
+      <button class="btn btn-action" type="submit">접수</button>
+      <button class="btn btn-action list" type="button" onclick="goList()">목록</button>
+    </div>
+  </form>
+</th:block>
+
+<script src="js/detail.js" th:src="@{/js/detail.js}"></script>
+</body>
+</html>

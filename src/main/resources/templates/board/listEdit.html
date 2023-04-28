@@ -8,7 +8,7 @@
 </head>
 
 <body>
-<form action="#" th:action="@{/checkIn/edit}" th:object="${board}" method="post" enctype="multipart/form-data" onsubmit="return confirmEdit();">
+<form action="#" th:action="@{/list/edit}" th:object="${board}" method="post" enctype="multipart/form-data" onsubmit="return confirmEdit();">
     <input type="hidden" th:field="*{id}">
     <div class="content">
         <!-- 페이지 내용 -->

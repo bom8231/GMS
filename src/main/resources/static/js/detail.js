@@ -22,4 +22,3 @@ function confirmReceipt() {
  function confirmComplete() {
     return confirm("완료하시겠습니까?");
   }
-

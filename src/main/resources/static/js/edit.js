@@ -242,3 +242,7 @@ function deleteImage(id) {
     method: 'POST'
   });
 }
+
+ function goList() {
+    window.history.back();
+  }

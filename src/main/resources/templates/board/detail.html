@@ -15,8 +15,7 @@
 </nav>
 <div id="wrapper">
     <div class="container">
-
-            <th:block th:if="${board.stateID == '0'} or ${board.stateID == '3'}">
+        <th:block th:if="${board.stateID == '0'} and ${board.userID == user[0].userID} or ${board.stateID == '3'} and ${board.USER_ID == user[0].userID}">
             <div class="btn-group">
                 <button class="edit" type="button" th:onclick="'location.href=\'' + @{/checkIn/edit(id=${board.id})} + '\''">수정</button>
                 <form action="#" th:action="@{/checkIn/delete/{boardId}(boardId=${board.id})}" th:object="${board}" method="post" onsubmit="return confirmDelete();">
@@ -436,7 +435,7 @@
 <th:block th:if="${board.stateID == '0' }">
     <form action="#" th:action="@{/checkIn/receipt/{boardId}(boardId=${board.id})}" th:object="${board}" method="post" onsubmit="return confirmReceipt();">
     <div class="footer">
-        <button class="btn btn-action" type="submit">접수</button>
+        <button class="btn btn-action" type="submit" th:if="${user[0].role=='경비'}">접수</button>
         <button class="btn btn-action list" type="button" onclick="goList()">목록</button>
     </div>
     </form>
@@ -445,7 +444,7 @@
 <th:block th:if="${board.stateID== '1' }">
     <form action="#" th:action="@{/checkOut/complete/{boardId}(boardId=${board.id})}" th:object="${board}" method="post" onsubmit="return confirmComplete();">
         <div class="footer">
-            <button class="btn btn-action">완료</button>
+            <button class="btn btn-action" type="submit" th:if="${user[0].role=='경비'}">완료</button>
             <button class="btn btn-action list" type="button" onclick="goList()">목록</button>
         </div>
     </form>

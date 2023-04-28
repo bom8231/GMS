@@ -71,8 +71,50 @@ public class BoardService {
     }
 
     /**
-    * 특정 상태에 대한 게시글 조회
-    * */
+     *  방문 신청 내역 조회
+     */
+    public HashMap<String, Object> progressList(String userID, Pageable pageable) {
+
+        HashMap<String, Object> listMap = new HashMap<>();
+        Page<maintable> list = boardRepository.findByUserID(userID, pageable);
+
+        listMap.put("list", list);
+        listMap.put("paging", list.getPageable());
+        listMap.put("totalCnt", list.getTotalElements());
+        listMap.put("totalPage", list.getTotalPages());
+        return listMap;
+    }
+
+    /**
+     *  방문 신청 내역 조회 + 검색
+     */
+    public HashMap<String, Object> progressSearchList(String searchKeyword, Pageable pageable, String type, String[] state, String startDate, String endDate, String userID) {
+        HashMap<String, Object> listMap = new HashMap<>();
+
+        Page<maintable> list = null;
+
+        if(type.equals("visitor_name"))
+            list = boardRepository.findByVISITORContainingAndDeDateLessThanEqualAndDeDateGreaterThanEqualAndUserID(searchKeyword, endDate, startDate, pageable, userID);
+        else if(type.equals("register_name"))
+            list = boardRepository.findByuserNameContainingAndDeDateLessThanEqualAndDeDateGreaterThanEqualAndUserID(searchKeyword, endDate, startDate, pageable, userID);
+        else if(type.equals("register_company"))
+            list = boardRepository.findByvisitAssignContainingAndDeDateLessThanEqualAndDeDateGreaterThanEqualAndUserID(searchKeyword, endDate, startDate, pageable, userID);
+        else if(type.equals("title"))
+            list = boardRepository.findByTITLEContainingAndDeDateLessThanEqualAndDeDateGreaterThanEqualAndUserID(searchKeyword, endDate, startDate, pageable, userID);
+        else if(type.equals("all"))
+            list = boardRepository.findByDeDateLessThanEqualAndDeDateGreaterThanEqualAndUserID(endDate, startDate,pageable, userID);
+        else
+            list = boardRepository.findByUserID(userID, pageable);
+
+        listMap.put("list", list);
+        listMap.put("paging", list.getPageable());
+        listMap.put("totalCnt", list.getTotalElements());
+        listMap.put("totalPage", list.getTotalPages());
+        return listMap;
+    }
+    /**
+     * 특정 상태에 대한 게시글 조회
+     * */
     public HashMap<String, Object> findStatusAll(String stateID, Pageable page) {
         HashMap<String, Object> listMap = new HashMap<>();
         Page<maintable> list = boardRepository.findByStateID(stateID,page);

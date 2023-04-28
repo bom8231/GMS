@@ -26,6 +26,8 @@
   </div>
 
   <!-- 버튼들 -->
+  <!-- 관리자 -->
+  <th:block th:if="${user[0].role=='관리자'}">
   <main>
     <div class="row no-gutters">
       <div class="col-6 col-md buttons">
@@ -97,6 +99,106 @@
       </div>
     </div>
   </main>
+  </th:block>
+
+
+  <!-- 임직원 -->
+  <th:block th:if="${user[0].role=='임직원'}">
+    <main>
+      <div class="row no-gutters">
+        <div class="col-6 col-md buttons">
+          <button type="button" class="common-button odd lightButton" th:onclick="|location.href='@{/registration}'|">
+            <div class="in-button">
+              <img src="img/Edit.png" alt="이미지" class="img-fluid mb-2" />
+              <br />
+              <span class="kr-info">방문 신청</span>
+              <br />
+              <span>Visitor Registration</span>
+            </div>
+          </button>
+        </div>
+        <div class="col-6 col-md">
+          <button type="button" class="common-button even darkButton" th:onclick="|location.href='@{/progress}'|">
+            <div class="in-button">
+              <img
+                      src="img/searchItem.png"
+                      alt="이미지"
+                      class="img-fluid mb-2"
+              />
+              <br />
+              <span class="kr-info">방문 신청 내역 조회</span>
+              <br />
+              <span>Check Progress</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </main>
+  </th:block>
+
+  <!-- 경비 -->
+  <th:block th:if="${user[0].role=='경비'}">
+    <main>
+      <div class="row no-gutters">
+        <div class="col-6 col-md buttons">
+          <button type="button" class="common-button odd lightButton" th:onclick="|location.href='@{/registration}'|">
+            <div class="in-button">
+              <img src="img/Edit.png" alt="이미지" class="img-fluid mb-2" />
+              <br />
+              <span class="kr-info">방문 신청</span>
+              <br />
+              <span>Visitor Registration</span>
+            </div>
+          </button>
+        </div>
+        <div class="col-6 col-md">
+          <button type="button" class="common-button even darkButton" th:onclick="|location.href='@{/progress}'|">
+            <div class="in-button">
+              <img
+                      src="img/searchItem.png"
+                      alt="이미지"
+                      class="img-fluid mb-2"
+              />
+              <br />
+              <span class="kr-info">방문 신청 내역 조회</span>
+              <br />
+              <span>Check Progress</span>
+            </div>
+          </button>
+        </div>
+        <div class="col-6 col-md">
+          <button type="button" class="common-button odd darkButton" th:onclick="|location.href='@{/checkIn}'|">
+            <div class="in-button">
+              <img
+                      src="img/TimeLimit.png"
+                      alt="이미지"
+                      class="img-fluid mb-2"
+              />
+              <br />
+              <span class="kr-info">방문 예정</span>
+              <br />
+              <span>Check-In</span>
+            </div>
+          </button>
+        </div>
+        <div class="col-6 col-md">
+          <button type="button" class="common-button even lightButton" th:onclick="|location.href='@{/checkOut}'|">
+            <div class="in-button">
+              <img
+                      src="img/Building.png"
+                      alt="이미지"
+                      class="img-fluid mb-2"
+              />
+              <br />
+              <span class="kr-info">방문 진행중</span>
+              <br />
+              <span>Check-out</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </main>
+  </th:block>
 </div>
 </body>
 </html>
