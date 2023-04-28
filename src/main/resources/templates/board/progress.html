@@ -23,17 +23,19 @@
             <div style="float:left">
                 <form th:action="@{/progress}" method="get" >
 
-                    <div style="float:left; margin-top:10px; margin-bottom:10px; margin-right:10px">
-                        방문 예정일 기간검색
-                    </div>
-                    <div style="float:left">
-                        <table>
-                            <tr>
-                                <td><input required name="startDate" type="date" class="form-control" placeholder="날짜 선택" aria-label="날짜 선택" aria-describedby="basic-addon2"  th:value="${startDate}"></td>
-                                <td>~</td>
-                                <td><input required name="endDate" type="date" class="form-control" placeholder="날짜 선택" aria-label="날짜 선택" aria-describedby="basic-addon2" th:value="${endDate}"></td>
-                            </tr>
-                        </table>
+                    <div class="dateInput">
+                        <div style="float:left; margin-top:10px; margin-bottom:10px; margin-right:10px">
+                            방문 예정일 기간검색
+                        </div>
+                        <div style="float:left">
+                            <table>
+                                <tr >
+                                    <td><input required name="startDate" type="date" class="form-control" placeholder="날짜 선택" aria-label="날짜 선택" aria-describedby="basic-addon2"  th:value="${startDate}"></td>
+                                    <td>~</td>
+                                    <td><input required name="endDate" type="date" class="form-control" placeholder="날짜 선택" aria-label="날짜 선택" aria-describedby="basic-addon2" th:value="${endDate}"></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
 
                     <div style="margin-top:10px;">
