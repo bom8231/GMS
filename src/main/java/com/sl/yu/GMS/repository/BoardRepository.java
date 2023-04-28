@@ -19,6 +19,9 @@ public interface BoardRepository extends JpaRepository<maintable,Long> {
     Page<maintable> findByvisitAssignContainingAndDeDateLessThanEqualAndDeDateGreaterThanEqual(String searchKeyword, String endDate, String startDate, Pageable pageable);
     Page<maintable> findByTITLEContainingAndDeDateLessThanEqualAndDeDateGreaterThanEqual(String searchKeyword, String endDate, String startDate, Pageable pageable);
     Page<maintable> findByDeDateLessThanEqualAndDeDateGreaterThanEqual(String endDate, String startDate, Pageable pageable);
+
+
+
     Page<maintable> findByStateID(String stateID, Pageable page);
     Page<maintable> findByStateIDAndDeDate(String stateID, String date, Pageable page);
 
@@ -36,4 +39,21 @@ public interface BoardRepository extends JpaRepository<maintable,Long> {
     Page<maintable> findByStateIDAndDeDateLessThan (String stateID, String now, Pageable page);
 
 
+
+
+
+//Progress
+
+    Page<maintable> findByUserID(String userID, Pageable pageable);
+    Page<maintable> findByVISITORContainingAndDeDateLessThanEqualAndDeDateGreaterThanEqualAndUserID(String searchKeyword, String endDate, String startDate, Pageable pageable, String userID);
+
+    Page<maintable> findByuserNameContainingAndDeDateLessThanEqualAndDeDateGreaterThanEqualAndUserID(String searchKeyword, String endDate, String startDate, Pageable pageable, String userID);
+
+    Page<maintable> findByvisitAssignContainingAndDeDateLessThanEqualAndDeDateGreaterThanEqualAndUserID(String searchKeyword, String endDate, String startDate, Pageable pageable, String userID);
+
+    Page<maintable> findByTITLEContainingAndDeDateLessThanEqualAndDeDateGreaterThanEqualAndUserID(String searchKeyword, String endDate, String startDate, Pageable pageable, String userID);
+
+    Page<maintable> findByDeDateLessThanEqualAndDeDateGreaterThanEqualAndUserID(String endDate, String startDate, Pageable pageable, String userID);
+
+    Page<maintable> findByStateIDAndDeDateLessThanAndUserID(String stateID, String now, Pageable page, String userID);
 }

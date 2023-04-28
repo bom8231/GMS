@@ -77,6 +77,28 @@ body {
 }
 
 
+.btn-action {
+   background-color: #539acc;
+   color: #fff;
+   font-family: Arial, sans-serif;
+   font-size: 20px;
+   border-radius: 8px;
+   border: 1px solid #539acc;
+   padding: 8px 70px;
+   text-transform: uppercase;
+   cursor: pointer;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border 0.2s ease-in-out;
+ }
+
+ .btn-action:hover {
+   background-color: #568ab1;
+   color: #fff;
+ }
+ .list{
+    margin-left: 10px;
+
+ }
 
 /*플러스 버튼*/
 .plus-button {
@@ -199,15 +221,5 @@ select option {
     display:none;
     }
 
-.btn-registration{
-background-color: #539acc;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  font-size: 20px;
-  border: none;
-   border-radius: 8px;
-  padding: 8px 50px;
-  text-transform: uppercase;
-  cursor: pointer;
-}
+
 }

@@ -232,3 +232,8 @@ function removeAllFiles() {
 
 // 파일 선택 시 파일 리스트 표시
 document.querySelector('input[type=file]').addEventListener('change', showFileList);
+
+
+ function goList() {
+    window.history.back();
+  }

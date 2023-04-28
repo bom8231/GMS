@@ -57,13 +57,11 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th width="13%">등록번호</th>
                             <th width="13%">등록부서</th>
                             <th width="10%">등록자</th>
                             <th width="15%">제목</th>
                             <th width="15%">내방자명</th>
                             <th width="10%">내방자회사</th>
-
                             <th width="12%">등록일시</th>
                             <th width="12%">차량번호</th>
                             <th width="5%">보안스티커</th>
@@ -72,29 +70,26 @@
                         <tbody>
                         <tr  th:each="list,index: ${resultMap.list}" th:with="paging=${resultMap.paging}" th:data-href="@{/checkIn/detail(id=${list.id})}" >
 
-                            <td data-label="등록번호"
-                                th:text="${#temporals.format(#temporals.createDate(list.REQ_DATE, 'yyyy-MM-dd HH:mm:ss.S'),
-                                 'yyyyMMdd')+'-'+list.id}">
-                                등록번호
-                            </td>
                             <!--                        <td data-label="등록부서" th:text="${list.DEPT_ID}">등록부서</td>-->
                             <!--                        <td data-label="등록자"  th:text="${list.USER_ID}">등록자</td>-->
-                            <td data-label="등록부서" th:text="${list.DEPT_ID}">등록부서</td>
+                            <td data-label="등록부서" th:text="${list.DEPT_NAME}">등록부서</td>
                             <td data-label="등록자"  th:text="${list.userName}">등록자</td>
                             <td data-label="제목"   th:text="${list.TITLE}">이건 제목이 아주 길지롱?</td>
                             <td data-label="내방자명" th:text="${list.VISITOR != null && !list.VISITOR.isEmpty() && list.VISITOR.contains(',') ? (list.VISITOR.endsWith(',') ? list.VISITOR.substring(0, list.VISITOR.length() - 1) : list.VISITOR.replace(',', ', ')) : (list.VISITOR != null ? list.VISITOR : '')}">
                                 내방자명
                             </td>
 
-                            <td data-label="내방자회사" >
-                            <span th:utext="${list.visitAssign != null &&
-                            !list.visitAssign.isEmpty() && list.visitAssign.contains(',') ?
-                            (list.visitAssign.endsWith(',') ? list.visitAssign.substring(0, list.visitAssign.length() - 1) :
-                            list.visitAssign.replace(',', ', ')) : (list.visitAssign != null ? list.visitAssign : '')}">
-                                내방자회사
-                            </span>
+                            <td data-label="내방자회사">
+                                  <span th:if="${list.visitAssign != null}">
+                                    <span th:if="${list.visitAssign.contains(',')}">
+                                      <span th:text="${list.visitAssign.substring(0, list.visitAssign.indexOf(','))}"></span>
+                                    </span>
+                                    <span th:unless="${list.visitAssign.contains(',')}">
+                                      <span th:text="${list.visitAssign}"></span>
+                                    </span>
+                                  </span>
                             </td>
-                            <td data-label="등록일시" th:text="${#temporals.format(#temporals.createDateTime(list.REQ_DATE, 'yyyy-MM-dd HH:mm:ss.S'), 'yyyy-MM-dd a hh:mm')}">
+                            <td data-label="등록일시" th:text="${#temporals.format(#temporals.createDateTime(list.REQ_DATE, 'yyyy-MM-dd HH:mm:ss.S'), 'yyyy-MM-dd HH:mm')}">
                                 등록일시
                             </td>
                             <td data-label="차량번호"
@@ -114,8 +109,7 @@
                         </tbody>
                     </table>
                 </div>
-                <nav  class="nav__bar" aria-label="Page navigation example">
-
+                <nav aria-label="Page navigation example" class="nav__bar" style="margin-top: 10px;" th:if="${resultMap.list.getTotalElements() > 0}">
                     <ul class="pagination  justify-content-center" th:with="start=${T(java.lang.Math).floor(resultMap.list.number/10)*10 + 1},
                     last=(${start + 9 < resultMap.list.getTotalPages ? start + 9 : resultMap.list.getTotalPages})">
                         <li>

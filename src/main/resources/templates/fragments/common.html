@@ -43,11 +43,14 @@
         <a class="navbar-brand" href="#" th:href="@{/main}">
           <img th:src="@{/img/logo.png}" alt="로고" />
         </a>
-        <div class="logout">
-          <span class="name">김보민님</span>
-          <span class="mr-2">(관리자)</span>
-          <button class="btn logout-button" type="button">로그아웃</button>
-        </div>
+
+          <form action="/logout" method="post">
+            <div class="logout">
+              <span class="name" th:text="${user[0].userName}+님">김보민님</span>
+              <span class="mr-2" th:text="'('+${user[0].role}+')'">(관리자)</span>
+            <button class="btn logout-button" type="submit">로그아웃</button>
+            </div>
+          </form>
       </div>
     </nav>
   </body>
