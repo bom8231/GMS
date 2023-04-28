@@ -51,7 +51,10 @@ public class BoardController {
     public String mainDirection(Model model) {
         return "board/main";
     }
-
+    @RequestMapping(value = "/guide", method = RequestMethod.GET)
+    public String guideDirection(Model model) {
+        return "board/guide";
+    }
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model){
         model.addAttribute("board",new maintable());
